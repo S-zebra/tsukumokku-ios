@@ -14,6 +14,13 @@
 		25C6EACF214971910024DE1E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25C6EACD214971910024DE1E /* LaunchScreen.storyboard */; };
 		25C6EADA214971920024DE1E /* tukumokkumokkuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6EAD9214971920024DE1E /* tukumokkumokkuTests.swift */; };
 		25C6EAE5214971920024DE1E /* tukumokkumokkuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6EAE4214971920024DE1E /* tukumokkumokkuUITests.swift */; };
+		25C6EB03214972D00024DE1E /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 25C6EAFE214972D00024DE1E /* home.png */; };
+		25C6EB04214972D00024DE1E /* toukou.png in Resources */ = {isa = PBXBuildFile; fileRef = 25C6EAFF214972D00024DE1E /* toukou.png */; };
+		25C6EB05214972D00024DE1E /* top.png in Resources */ = {isa = PBXBuildFile; fileRef = 25C6EB00214972D00024DE1E /* top.png */; };
+		25C6EB06214972D00024DE1E /* last.png in Resources */ = {isa = PBXBuildFile; fileRef = 25C6EB01214972D00024DE1E /* last.png */; };
+		25C6EB07214972D00024DE1E /* kakuni.png in Resources */ = {isa = PBXBuildFile; fileRef = 25C6EB02214972D00024DE1E /* kakuni.png */; };
+		641D16FD214B44F4002B75C4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641D16FC214B44F4002B75C4 /* Constants.swift */; };
+		641D16FF214B45E0002B75C4 /* TsukumoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641D16FE214B45E0002B75C4 /* TsukumoAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +54,13 @@
 		25C6EAE0214971920024DE1E /* tukumokkumokkuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tukumokkumokkuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25C6EAE4214971920024DE1E /* tukumokkumokkuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tukumokkumokkuUITests.swift; sourceTree = "<group>"; };
 		25C6EAE6214971920024DE1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		25C6EAFE214972D00024DE1E /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
+		25C6EAFF214972D00024DE1E /* toukou.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toukou.png; sourceTree = "<group>"; };
+		25C6EB00214972D00024DE1E /* top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = top.png; sourceTree = "<group>"; };
+		25C6EB01214972D00024DE1E /* last.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = last.png; sourceTree = "<group>"; };
+		25C6EB02214972D00024DE1E /* kakuni.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kakuni.png; sourceTree = "<group>"; };
+		641D16FC214B44F4002B75C4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		641D16FE214B45E0002B75C4 /* TsukumoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TsukumoAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,12 +111,15 @@
 		25C6EAC32149718F0024DE1E /* tukumokkumokku */ = {
 			isa = PBXGroup;
 			children = (
+				25C6EAFD214972D00024DE1E /* img */,
 				25C6EAC42149718F0024DE1E /* AppDelegate.swift */,
 				25C6EAC62149718F0024DE1E /* ViewController.swift */,
+				641D16FC214B44F4002B75C4 /* Constants.swift */,
 				25C6EAC82149718F0024DE1E /* Main.storyboard */,
 				25C6EACB214971910024DE1E /* Assets.xcassets */,
 				25C6EACD214971910024DE1E /* LaunchScreen.storyboard */,
 				25C6EAD0214971910024DE1E /* Info.plist */,
+				641D16FE214B45E0002B75C4 /* TsukumoAPI.swift */,
 			);
 			path = tukumokkumokku;
 			sourceTree = "<group>";
@@ -124,6 +141,18 @@
 			);
 			path = tukumokkumokkuUITests;
 			sourceTree = "<group>";
+		};
+		25C6EAFD214972D00024DE1E /* img */ = {
+			isa = PBXGroup;
+			children = (
+				25C6EAFE214972D00024DE1E /* home.png */,
+				25C6EAFF214972D00024DE1E /* toukou.png */,
+				25C6EB00214972D00024DE1E /* top.png */,
+				25C6EB01214972D00024DE1E /* last.png */,
+				25C6EB02214972D00024DE1E /* kakuni.png */,
+			);
+			path = img;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -229,9 +258,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25C6EB07214972D00024DE1E /* kakuni.png in Resources */,
+				25C6EB03214972D00024DE1E /* home.png in Resources */,
 				25C6EACF214971910024DE1E /* LaunchScreen.storyboard in Resources */,
 				25C6EACC214971910024DE1E /* Assets.xcassets in Resources */,
+				25C6EB05214972D00024DE1E /* top.png in Resources */,
 				25C6EACA2149718F0024DE1E /* Main.storyboard in Resources */,
+				25C6EB06214972D00024DE1E /* last.png in Resources */,
+				25C6EB04214972D00024DE1E /* toukou.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,7 +291,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				25C6EAC72149718F0024DE1E /* ViewController.swift in Sources */,
+				641D16FF214B45E0002B75C4 /* TsukumoAPI.swift in Sources */,
 				25C6EAC52149718F0024DE1E /* AppDelegate.swift in Sources */,
+				641D16FD214B44F4002B75C4 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,6 +467,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BY6HR4HTRM;
 				INFOPLIST_FILE = tukumokkumokku/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -448,6 +485,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BY6HR4HTRM;
 				INFOPLIST_FILE = tukumokkumokku/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
