@@ -22,6 +22,7 @@
 		641D16FD214B44F4002B75C4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641D16FC214B44F4002B75C4 /* Constants.swift */; };
 		641D16FF214B45E0002B75C4 /* TsukumoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641D16FE214B45E0002B75C4 /* TsukumoAPI.swift */; };
 		64350238214E262E004BE58D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64350237214E262E004BE58D /* MapKit.framework */; };
+		6435023A214E43CF004BE58D /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 64350239214E43CF004BE58D /* logo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		641D16FC214B44F4002B75C4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		641D16FE214B45E0002B75C4 /* TsukumoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TsukumoAPI.swift; sourceTree = "<group>"; };
 		64350237214E262E004BE58D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		64350239214E43CF004BE58D /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 		25C6EAFD214972D00024DE1E /* img */ = {
 			isa = PBXGroup;
 			children = (
+				64350239214E43CF004BE58D /* logo.png */,
 				25C6EAFE214972D00024DE1E /* home.png */,
 				25C6EAFF214972D00024DE1E /* toukou.png */,
 				25C6EB00214972D00024DE1E /* top.png */,
@@ -277,6 +280,7 @@
 			files = (
 				25C6EB07214972D00024DE1E /* kakuni.png in Resources */,
 				25C6EB03214972D00024DE1E /* home.png in Resources */,
+				6435023A214E43CF004BE58D /* logo.png in Resources */,
 				25C6EACF214971910024DE1E /* LaunchScreen.storyboard in Resources */,
 				25C6EACC214971910024DE1E /* Assets.xcassets in Resources */,
 				25C6EB05214972D00024DE1E /* top.png in Resources */,
@@ -490,7 +494,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = swift.com.practice.tukumokkumokku;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.uemtp2018.tsukumokku;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -508,7 +512,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = swift.com.practice.tukumokkumokku;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.uemtp2018.tsukumokku;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
