@@ -19,8 +19,8 @@ struct Post {
 // クロージャ: { hoge, _(要らないとき), fuga in [処理] }
 
 class TsukumoAPI {
-//  static let serverUrl = URL(string: "https://tsukumokku.herokuapp.com")!
-  static let serverUrl = URL(string: "http://192.168.150.31:3000")!
+  static let serverUrl = URL(string: "https://tsukumokku.herokuapp.com")!
+//  static let serverUrl = URL(string: "http://192.168.150.31:3000")!
   static let apiUrl = TsukumoAPI.serverUrl.appendingPathComponent("api/v1")
 
   static let defaultsKeyToken = "ApiKey"

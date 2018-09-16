@@ -23,6 +23,7 @@
 		641D16FF214B45E0002B75C4 /* TsukumoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641D16FE214B45E0002B75C4 /* TsukumoAPI.swift */; };
 		64350238214E262E004BE58D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64350237214E262E004BE58D /* MapKit.framework */; };
 		6435023A214E43CF004BE58D /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 64350239214E43CF004BE58D /* logo.png */; };
+		64350240214E747C004BE58D /* outline_send_white_24pt.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6435023F214E747B004BE58D /* outline_send_white_24pt.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		641D16FE214B45E0002B75C4 /* TsukumoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TsukumoAPI.swift; sourceTree = "<group>"; };
 		64350237214E262E004BE58D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		64350239214E43CF004BE58D /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		6435023F214E747B004BE58D /* outline_send_white_24pt.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = outline_send_white_24pt.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				25C6EAC62149718F0024DE1E /* ViewController.swift */,
 				641D16FC214B44F4002B75C4 /* Constants.swift */,
 				25C6EAC82149718F0024DE1E /* Main.storyboard */,
+				6435023F214E747B004BE58D /* outline_send_white_24pt.xcassets */,
 				25C6EACB214971910024DE1E /* Assets.xcassets */,
 				25C6EACD214971910024DE1E /* LaunchScreen.storyboard */,
 				25C6EAD0214971910024DE1E /* Info.plist */,
@@ -282,6 +285,7 @@
 				25C6EB03214972D00024DE1E /* home.png in Resources */,
 				6435023A214E43CF004BE58D /* logo.png in Resources */,
 				25C6EACF214971910024DE1E /* LaunchScreen.storyboard in Resources */,
+				64350240214E747C004BE58D /* outline_send_white_24pt.xcassets in Resources */,
 				25C6EACC214971910024DE1E /* Assets.xcassets in Resources */,
 				25C6EB05214972D00024DE1E /* top.png in Resources */,
 				25C6EACA2149718F0024DE1E /* Main.storyboard in Resources */,
