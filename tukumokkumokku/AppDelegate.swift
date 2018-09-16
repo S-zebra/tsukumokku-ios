@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
+    self.window?.tintColor = UIColor.tsukumoYellow()
     return true
   }
 
@@ -48,5 +49,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func applicationWillTerminate(_ application: UIApplication) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+  }
+}
+
+extension UIColor {
+  static func tsukumoYellow() -> UIColor {
+    return UIColor(red: 0.7, green: 0.61, blue: 0, alpha: 1)
   }
 }
