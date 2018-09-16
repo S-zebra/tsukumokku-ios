@@ -69,7 +69,6 @@ class ViewController: UIViewController {
   // 地図画面に遷移する
   func moveToMap() {
     let mapScene = storyboard!.instantiateViewController(withIdentifier: "mapScene")
-    mapScene.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
     present(mapScene, animated: true, completion: nil)
   }
 
