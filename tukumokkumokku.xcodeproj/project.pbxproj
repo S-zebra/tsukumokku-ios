@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		25C6EAC52149718F0024DE1E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6EAC42149718F0024DE1E /* AppDelegate.swift */; };
-		25C6EAC72149718F0024DE1E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6EAC62149718F0024DE1E /* ViewController.swift */; };
+		25C6EAC72149718F0024DE1E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6EAC62149718F0024DE1E /* LoginViewController.swift */; };
 		25C6EACA2149718F0024DE1E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25C6EAC82149718F0024DE1E /* Main.storyboard */; };
 		25C6EACC214971910024DE1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25C6EACB214971910024DE1E /* Assets.xcassets */; };
 		25C6EACF214971910024DE1E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25C6EACD214971910024DE1E /* LaunchScreen.storyboard */; };
@@ -24,6 +24,7 @@
 		64350238214E262E004BE58D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64350237214E262E004BE58D /* MapKit.framework */; };
 		6435023A214E43CF004BE58D /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 64350239214E43CF004BE58D /* logo.png */; };
 		64350240214E747C004BE58D /* outline_send_white_24pt.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6435023F214E747B004BE58D /* outline_send_white_24pt.xcassets */; };
+		64736133214FC79B00B8AC20 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64736132214FC79B00B8AC20 /* PostViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +47,7 @@
 /* Begin PBXFileReference section */
 		25C6EAC12149718F0024DE1E /* tukumokkumokku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tukumokkumokku.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25C6EAC42149718F0024DE1E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		25C6EAC62149718F0024DE1E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		25C6EAC62149718F0024DE1E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		25C6EAC92149718F0024DE1E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		25C6EACB214971910024DE1E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		25C6EACE214971910024DE1E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -67,6 +68,7 @@
 		64350237214E262E004BE58D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		64350239214E43CF004BE58D /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		6435023F214E747B004BE58D /* outline_send_white_24pt.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = outline_send_white_24pt.xcassets; sourceTree = "<group>"; };
+		64736132214FC79B00B8AC20 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,7 +123,8 @@
 			children = (
 				25C6EAFD214972D00024DE1E /* img */,
 				25C6EAC42149718F0024DE1E /* AppDelegate.swift */,
-				25C6EAC62149718F0024DE1E /* ViewController.swift */,
+				25C6EAC62149718F0024DE1E /* LoginViewController.swift */,
+				64736132214FC79B00B8AC20 /* PostViewController.swift */,
 				641D16FC214B44F4002B75C4 /* Constants.swift */,
 				25C6EAC82149718F0024DE1E /* Main.storyboard */,
 				6435023F214E747B004BE58D /* outline_send_white_24pt.xcassets */,
@@ -315,10 +318,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25C6EAC72149718F0024DE1E /* ViewController.swift in Sources */,
+				25C6EAC72149718F0024DE1E /* LoginViewController.swift in Sources */,
 				641D16FF214B45E0002B75C4 /* TsukumoAPI.swift in Sources */,
 				25C6EAC52149718F0024DE1E /* AppDelegate.swift in Sources */,
 				641D16FD214B44F4002B75C4 /* Constants.swift in Sources */,
+				64736133214FC79B00B8AC20 /* PostViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

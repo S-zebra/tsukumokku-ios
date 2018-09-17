@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class LoginViewController: UIViewController {
   let api = TsukumoAPI.shared
 
   override func viewDidLoad() {
@@ -24,7 +24,7 @@ class ViewController: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     // 戻ってきたときに続行
     NotificationCenter.default.addObserver(self,
-                                           selector: #selector(ViewController.tryLogin),
+                                           selector: #selector(LoginViewController.tryLogin),
                                            name: NSNotification.Name.UIApplicationDidBecomeActive,
                                            object: nil)
     // 最初の試行
