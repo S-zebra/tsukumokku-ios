@@ -9,7 +9,7 @@
 import CoreLocation
 import UIKit
 
-class PostViewController: UIViewController, UITextViewDelegate, CLLocationManagerDelegate {
+class PostViewController: UIViewController, UITextViewDelegate {
   @IBOutlet var contentBox: UITextView!
   @IBOutlet var geoButton: UIButton!
   @IBOutlet var geoRetrievingIndicator: UIActivityIndicatorView!
@@ -37,17 +37,6 @@ class PostViewController: UIViewController, UITextViewDelegate, CLLocationManage
     geoLabel.isHidden = false
   }
 
-  // 更新時
-  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    currentLocation = locations[0].coordinate
-    NSLog("Lat: %.4f, Lon: %.4f", currentLocation.latitude, currentLocation.longitude)
-    locationManager.stopUpdatingLocation()
-    geoButton.setImage(UIImage(named: "baseline_location_on_black_24pt"), for: .normal)
-    geoButton.isEnabled = true
-    geoRetrievingIndicator.stopAnimating()
-    geoLabel.text = String(format: "%.3f, %.3f", currentLocation.latitude, currentLocation.longitude)
-  }
-
   @IBAction func onCancelButtonClick(_ sender: Any) {
     dismiss(animated: true, completion: nil)
   }
@@ -59,7 +48,7 @@ class PostViewController: UIViewController, UITextViewDelegate, CLLocationManage
       try api.sendPost(lat: Float(currentLocation.latitude),
                        lon: Float(currentLocation.longitude),
                        text: contentBox.text,
-                       onComplete: {
+                       onComplete: { _ in
                          NSLog("Post Complete!")
                          DispatchQueue.main.async {
                            self.dismiss(animated: true, completion: nil)
@@ -74,7 +63,9 @@ class PostViewController: UIViewController, UITextViewDelegate, CLLocationManage
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
+}
 
+extension PostViewController: CLLocationManagerDelegate {
   // CLLocation初期化 (ボタンを押された時)
   func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
     switch status {
@@ -94,5 +85,16 @@ class PostViewController: UIViewController, UITextViewDelegate, CLLocationManage
     case .authorizedWhenInUse:
       NSLog("FG時のみ許可されている")
     }
+  }
+
+  // 更新時
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    currentLocation = locations[0].coordinate
+    NSLog("Lat: %.4f, Lon: %.4f", currentLocation.latitude, currentLocation.longitude)
+    locationManager.stopUpdatingLocation()
+    geoButton.setImage(UIImage(named: "baseline_location_on_black_24pt"), for: .normal)
+    geoButton.isEnabled = true
+    geoRetrievingIndicator.stopAnimating()
+    geoLabel.text = String(format: "%.3f, %.3f", currentLocation.latitude, currentLocation.longitude)
   }
 }
