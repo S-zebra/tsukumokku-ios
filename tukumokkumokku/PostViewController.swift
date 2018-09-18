@@ -45,8 +45,7 @@ class PostViewController: UIViewController, UITextViewDelegate {
     if currentLocation == nil { NSLog("Location is not set!") }
     do {
       NSLog("Location OK, calling sendPost()")
-      try api.sendPost(lat: Float(currentLocation.latitude),
-                       lon: Float(currentLocation.longitude),
+      try api.sendPost(location: currentLocation,
                        text: contentBox.text,
                        onComplete: { _ in
                          NSLog("Post Complete!")

@@ -6,7 +6,9 @@
 //  Copyright © 2018 nakatake. All rights reserved.
 //
 
+import CoreLocation
 import Foundation
+
 struct Post: Codable {
   var lat, lon: Float
   var text: String
@@ -66,9 +68,9 @@ class TsukumoAPI {
     NSLog("Test req. sent")
   }
 
-  //投稿を取得
-  func getPosts(lat: Float, lon: Float, onComplete: @escaping ([Post]) -> Void) {
-    let url = TsukumoAPI.apiUrl.appendingPathComponent("/posts")
+  // 投稿を取得
+  func getPosts(location: CLLocationCoordinate2D, onComplete: @escaping ([Post]) -> Void) {
+    let url = URL(string: TsukumoAPI.apiUrl.description + "/posts?lat=\(Float(location.latitude))&lon=\(Float(location.longitude))")!
     // resume()した時点で非同期になっている
 
     let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, _ in
@@ -85,12 +87,12 @@ class TsukumoAPI {
   }
 
   // 投稿を送信
-  func sendPost(lat: Float, lon: Float, text: String, onComplete: @escaping ([Post]) -> Void) throws {
+  func sendPost(location: CLLocationCoordinate2D, text: String, onComplete: @escaping ([Post]) -> Void) throws {
     var req = URLRequest(url: TsukumoAPI.apiUrl.appendingPathComponent("/posts"))
     req.httpMethod = "POST"
     req.setValue("application/json", forHTTPHeaderField: "Content-Type")
     req.setValue(apiKey!, forHTTPHeaderField: "API_TOKEN")
-    let post = Post(lat: lat, lon: lon, text: text)
+    let post = Post(lat: Float(location.latitude), lon: Float(location.longitude), text: text)
     let encoder = JSONEncoder()
     let data = try encoder.encode(post)
     let task = URLSession.shared.uploadTask(with: req, from: data, completionHandler: { data, _, _ in
