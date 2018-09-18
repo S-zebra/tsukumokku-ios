@@ -10,7 +10,6 @@ import UIKit
 
 class LoginViewController: UIViewController {
   let api = TsukumoAPI.shared
-
   override func viewDidLoad() {
     // Do any additional setup after loading the view, typically from a nib.
     super.viewDidLoad()
@@ -32,9 +31,7 @@ class LoginViewController: UIViewController {
   }
 
   @objc func tryLogin() {
-//    NSLog("View appeared, passedKey: \(AppDelegate.passedKey), apiKey: \(api.apiKey)")
-
-    if AppDelegate.passedKey != nil && api.apiKey == nil { // Safariから帰ってきたとき
+    if AppDelegate.passedKey != nil && api.apiKey == nil { // Safariから戻ったとき
       api.isAvailable(key: AppDelegate.passedKey!, onComplete: { r in
         self.testCompleteCB(res: r)
       })
@@ -42,8 +39,9 @@ class LoginViewController: UIViewController {
       api.isAvailable(key: api.apiKey!, onComplete: { r in
         self.testCompleteCB(res: r)
       })
-    } else { // ログインしていないとき
-      showLoginRequiredAlert(title: "登録が必要です", message: "このアプリをお使いいただくには、登録が必要です。登録を行ってください。")
+    } else { // 初回起動時
+      showLoginRequiredAlert(title: "登録が必要です",
+                             message: "このアプリをお使いいただくには、登録が必要です。登録を行ってください。")
     }
   }
 

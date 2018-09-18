@@ -46,15 +46,13 @@ class TsukumoAPI {
     apiKey = UserDefaults.standard.string(forKey: TsukumoAPI.defaultsKeyToken)
   }
 
-  // めったに失敗はないだろうが、手動で値が書き換わった、垢を消されたなどのとき
-  // falseが返ることがある
+  // ログイン可否の確認 (onCompleteに返される)
+  // 手動で値が書き換わった、垢を消されたなどのときはfalseが返ることがある
   func isAvailable(key: String, onComplete: @escaping (Bool) -> Void) {
     let url = URL(string: TsukumoAPI.apiUrl.description + "/accounts/available?token=\(key)")!
-
     let task = URLSession.shared.dataTask(with: url, completionHandler: { data, urlRes, _ in
       do {
         NSLog("url: \(String(describing: urlRes?.url!.absoluteString))")
-        NSLog("Data arrived. Data: \(String(data: data!, encoding: String.Encoding.utf8))")
         let obj: NSDictionary = try JSONSerialization.jsonObject(with: data!,
                                                                  options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
         NSLog("Obj: \(obj.description)")
@@ -68,7 +66,26 @@ class TsukumoAPI {
     NSLog("Test req. sent")
   }
 
-  func sendPost(lat: Float, lon: Float, text: String, onComplete: @escaping () -> Void) throws {
+  //投稿を取得
+  func getPosts(lat: Float, lon: Float, onComplete: @escaping ([Post]) -> Void) {
+    let url = TsukumoAPI.apiUrl.appendingPathComponent("/posts")
+    // resume()した時点で非同期になっている
+
+    let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, _ in
+      do {
+        let json = try JSONSerialization.jsonObject(with: data!,
+                                                    options: JSONSerialization.ReadingOptions.allowFragments)
+        onComplete(self.jsonToPosts(json: json, arrayKey: "result"))
+      } catch {
+        NSLog("JSON Parse Error")
+      }
+    })
+    task.resume()
+    NSLog("Req sent.")
+  }
+
+  // 投稿を送信
+  func sendPost(lat: Float, lon: Float, text: String, onComplete: @escaping ([Post]) -> Void) throws {
     var req = URLRequest(url: TsukumoAPI.apiUrl.appendingPathComponent("/posts"))
     req.httpMethod = "POST"
     req.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -78,43 +95,27 @@ class TsukumoAPI {
     let data = try encoder.encode(post)
     let task = URLSession.shared.uploadTask(with: req, from: data, completionHandler: { data, _, _ in
       do {
-        NSLog("res arrived")
-        let json = try JSONSerialization.jsonObject(with: data!,
-                                                    options: JSONSerialization.ReadingOptions.allowFragments)
-        NSLog(String.init(data: data!, encoding: String.Encoding.utf8)!)
-        onComplete()
+        let json = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
+        onComplete(self.jsonToPosts(json: json, arrayKey: "posts"))
       } catch {
-        NSLog("Error in task")
+        NSLog("sendPost: JSON Serialization Error")
       }
     })
     task.resume()
     NSLog("Post sent")
   }
 
-  func getPosts(lat: Float, lon: Float, onComplete: @escaping ([Post]) -> Void) {
-    let url = TsukumoAPI.apiUrl.appendingPathComponent("/posts")
-    // resume()した時点で非同期になっている
+  private func jsonToPosts(json: Any, arrayKey: String) -> [Post] {
+    let list: NSArray = (json as! NSDictionary).value(forKey: "result") as! NSArray
+    var posts = [Post]()
+    list.forEach({ item in
+      let post = item as! NSDictionary
+      NSLog(post.description)
+      posts.append(Post(lat: (post.value(forKey: "latitude") as! NSNumber).floatValue,
+                        lon: (post.value(forKey: "longitude") as! NSNumber).floatValue,
+                        text: post.value(forKey: "text") as! String))
 
-    let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, _ in
-      do {
-        let json = try JSONSerialization.jsonObject(with: data!,
-                                                    options: JSONSerialization.ReadingOptions.allowFragments)
-        let list: NSArray = (json as! NSDictionary).value(forKey: "result") as! NSArray
-        var posts = [Post]()
-        list.forEach({ item in
-          let post = item as! NSDictionary
-          NSLog(post.description)
-          posts.append(Post(lat: (post.value(forKey: "latitude") as! NSNumber).floatValue,
-                            lon: (post.value(forKey: "longitude") as! NSNumber).floatValue,
-                            text: post.value(forKey: "text") as! String))
-
-        })
-        onComplete(posts)
-      } catch {
-        NSLog("JSON Parse Error")
-      }
     })
-    task.resume()
-    NSLog("Req sent.")
+    return posts
   }
 }
