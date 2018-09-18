@@ -7,12 +7,17 @@
 //
 
 import Foundation
-
-struct Location {}
-
-struct Post {
+struct Post: Codable {
   var lat, lon: Float
   var text: String
+}
+
+enum HTTPStatusCode: Int {
+  case OK = 200
+  case BadRequest = 400
+  case Forbidden = 403
+  case NotFound = 404
+  case InternalError = 500
 }
 
 // let->Constant(=const), var->Variable(=let)
@@ -48,7 +53,7 @@ class TsukumoAPI {
 
     let task = URLSession.shared.dataTask(with: url, completionHandler: { data, urlRes, _ in
       do {
-        NSLog("url: \(urlRes?.url!.absoluteString)")
+        NSLog("url: \(String(describing: urlRes?.url!.absoluteString))")
         NSLog("Data arrived. Data: \(String(data: data!, encoding: String.Encoding.utf8))")
         let obj: NSDictionary = try JSONSerialization.jsonObject(with: data!,
                                                                  options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
@@ -61,6 +66,29 @@ class TsukumoAPI {
     })
     task.resume()
     NSLog("Test req. sent")
+  }
+
+  func sendPost(lat: Float, lon: Float, text: String, onComplete: @escaping () -> Void) throws {
+    var req = URLRequest(url: TsukumoAPI.apiUrl.appendingPathComponent("/posts"))
+    req.httpMethod = "POST"
+    req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    req.setValue(apiKey!, forHTTPHeaderField: "API_TOKEN")
+    let post = Post(lat: lat, lon: lon, text: text)
+    let encoder = JSONEncoder()
+    let data = try encoder.encode(post)
+    let task = URLSession.shared.uploadTask(with: req, from: data, completionHandler: { data, _, _ in
+      do {
+        NSLog("res arrived")
+        let json = try JSONSerialization.jsonObject(with: data!,
+                                                    options: JSONSerialization.ReadingOptions.allowFragments)
+        NSLog(String.init(data: data!, encoding: String.Encoding.utf8)!)
+        onComplete()
+      } catch {
+        NSLog("Error in task")
+      }
+    })
+    task.resume()
+    NSLog("Post sent")
   }
 
   func getPosts(lat: Float, lon: Float, onComplete: @escaping ([Post]) -> Void) {

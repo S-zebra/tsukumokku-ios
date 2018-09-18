@@ -30,7 +30,7 @@
                                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="cGE-Rn-Tgf">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
-                                                <segue destination="4lf-b9-0TX" kind="show" id="wuM-Ky-JCm"/>
+                                                <segue destination="4lf-b9-0TX" kind="presentation" id="wuM-Ky-JCm"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -76,7 +76,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="mJS-xU-AT6">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="mJS-xU-AT6">
                                 <rect key="frame" x="92" y="323.5" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
@@ -100,17 +100,23 @@
             <objects>
                 <viewController title="新規投稿" id="4lf-b9-0TX" userLabel="New Post" customClass="PostViewController" customModule="tukumokkumokku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zmS-Ok-tKv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w24-yz-00L">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <color key="barTintColor" red="0.66666666669999997" green="0.5450980392" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <textAttributes key="titleTextAttributes">
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="新規投稿" id="wZx-qB-HW5">
+                                        <barButtonItem key="leftBarButtonItem" image="outline_close_white_24pt" id="CtV-ta-y70">
+                                            <color key="tintColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <connections>
+                                                <action selector="onCancelButtonClick:" destination="4lf-b9-0TX" id="yBw-F5-mci"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="送信" image="outline_send_white_24pt" id="1AJ-Qn-khi">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
@@ -120,30 +126,74 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="ああああああ" translatesAutoresizingMaskIntoConstraints="NO" id="RoJ-xG-xAM">
-                                <rect key="frame" x="0.0" y="44" width="375" height="559"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RoJ-xG-xAM">
+                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.72549019609999998" green="0.63137254899999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOs-j8-P4f">
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem title="Item" id="zep-3w-tE8">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" id="Eck-Gy-lNy">
+                                            <rect key="frame" x="16" y="10" width="24" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="outline_location_on_black_24pt"/>
+                                            <connections>
+                                                <action selector="geoButtonClick:" destination="4lf-b9-0TX" eventType="touchUpInside" id="2yp-1f-ql0"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" id="bpg-uw-Yn0">
+                                        <view key="customView" contentMode="scaleToFill" id="da1-oC-ymm">
+                                            <rect key="frame" x="64" y="5.5" width="295" height="33"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="取得中…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5rM-fi-Kjd">
+                                                    <rect key="frame" x="28" y="6" width="66" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bai-a2-Pg1">
+                                                    <rect key="frame" x="0.0" y="6.5" width="20" height="20"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="5rM-fi-Kjd" firstAttribute="centerY" secondItem="da1-oC-ymm" secondAttribute="centerY" id="Q5Z-gf-b2W"/>
+                                                <constraint firstItem="bai-a2-Pg1" firstAttribute="centerY" secondItem="da1-oC-ymm" secondAttribute="centerY" id="ab4-R6-bXR"/>
+                                                <constraint firstItem="5rM-fi-Kjd" firstAttribute="leading" secondItem="bai-a2-Pg1" secondAttribute="trailing" constant="8" id="ffJ-Ri-9Pk"/>
+                                                <constraint firstItem="bai-a2-Pg1" firstAttribute="leading" secondItem="da1-oC-ymm" secondAttribute="leading" id="viw-o8-V7S"/>
+                                            </constraints>
+                                        </view>
+                                    </barButtonItem>
+                                </items>
+                                <color key="barTintColor" white="0.95153214420591081" alpha="1" colorSpace="calibratedWhite"/>
+                            </toolbar>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.66666666669999997" green="0.5450980392" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.66666666669999997" green="0.5450980392" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="EOs-j8-P4f" firstAttribute="top" secondItem="w24-yz-00L" secondAttribute="bottom" id="DmJ-8e-Mdl"/>
                             <constraint firstItem="w24-yz-00L" firstAttribute="leading" secondItem="Jy6-0V-7Ct" secondAttribute="leading" id="MSv-P5-yeY"/>
                             <constraint firstItem="w24-yz-00L" firstAttribute="top" secondItem="Jy6-0V-7Ct" secondAttribute="top" id="OlA-WR-gzn"/>
-                            <constraint firstItem="RoJ-xG-xAM" firstAttribute="top" secondItem="w24-yz-00L" secondAttribute="bottom" id="Si5-rC-F2T"/>
+                            <constraint firstItem="RoJ-xG-xAM" firstAttribute="top" secondItem="EOs-j8-P4f" secondAttribute="bottom" symbolic="YES" id="Si5-rC-F2T"/>
                             <constraint firstItem="Jy6-0V-7Ct" firstAttribute="bottom" secondItem="RoJ-xG-xAM" secondAttribute="bottom" id="baE-7Q-H3i"/>
                             <constraint firstItem="RoJ-xG-xAM" firstAttribute="trailing" secondItem="Jy6-0V-7Ct" secondAttribute="trailing" id="cbf-q6-lp2"/>
+                            <constraint firstItem="EOs-j8-P4f" firstAttribute="trailing" secondItem="Jy6-0V-7Ct" secondAttribute="trailing" id="owq-LP-bBD"/>
                             <constraint firstItem="w24-yz-00L" firstAttribute="trailing" secondItem="Jy6-0V-7Ct" secondAttribute="trailing" id="qfq-pa-t1q"/>
                             <constraint firstItem="RoJ-xG-xAM" firstAttribute="leading" secondItem="Jy6-0V-7Ct" secondAttribute="leading" id="rs3-RK-eL0"/>
+                            <constraint firstItem="EOs-j8-P4f" firstAttribute="leading" secondItem="Jy6-0V-7Ct" secondAttribute="leading" id="zbn-il-DaN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Jy6-0V-7Ct"/>
                     </view>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="contentBox" destination="RoJ-xG-xAM" id="ZI4-k5-ipq"/>
+                        <outlet property="geoButton" destination="Eck-Gy-lNy" id="KdM-qO-30L"/>
+                        <outlet property="geoLabel" destination="5rM-fi-Kjd" id="YQJ-5r-Qtj"/>
+                        <outlet property="geoRetrievingIndicator" destination="bai-a2-Pg1" id="jPm-ZM-kK3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K7C-KJ-jAI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -214,6 +264,8 @@
     <resources>
         <image name="kakuni.png" width="750" height="1334"/>
         <image name="last.png" width="750" height="1334"/>
+        <image name="outline_close_white_24pt" width="24" height="24"/>
+        <image name="outline_location_on_black_24pt" width="24" height="24"/>
         <image name="outline_send_white_24pt" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
