@@ -47,7 +47,7 @@ class PostViewController: UIViewController, UITextViewDelegate {
       NSLog("Location OK, calling sendPost()")
       try api.sendPost(location: currentLocation,
                        text: contentBox.text,
-                       onComplete: { _ in
+                       onComplete: {
                          NSLog("Post Complete!")
                          DispatchQueue.main.async {
                            self.dismiss(animated: true, completion: nil)

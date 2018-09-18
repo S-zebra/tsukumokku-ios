@@ -87,7 +87,7 @@ class TsukumoAPI {
   }
 
   // 投稿を送信
-  func sendPost(location: CLLocationCoordinate2D, text: String, onComplete: @escaping ([Post]) -> Void) throws {
+  func sendPost(location: CLLocationCoordinate2D, text: String, onComplete: @escaping () -> Void) throws {
     var req = URLRequest(url: TsukumoAPI.apiUrl.appendingPathComponent("/posts"))
     req.httpMethod = "POST"
     req.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -95,13 +95,8 @@ class TsukumoAPI {
     let post = Post(lat: Float(location.latitude), lon: Float(location.longitude), text: text)
     let encoder = JSONEncoder()
     let data = try encoder.encode(post)
-    let task = URLSession.shared.uploadTask(with: req, from: data, completionHandler: { data, _, _ in
-      do {
-        let json = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
-        onComplete(self.jsonToPosts(json: json, arrayKey: "posts"))
-      } catch {
-        NSLog("sendPost: JSON Serialization Error")
-      }
+    let task = URLSession.shared.uploadTask(with: req, from: data, completionHandler: { _, _, _ in
+      onComplete()
     })
     task.resume()
     NSLog("Post sent")
