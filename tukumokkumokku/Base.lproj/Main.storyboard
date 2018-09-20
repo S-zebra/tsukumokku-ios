@@ -116,9 +116,15 @@
                                     <navigationItem title="新規投稿" id="wZx-qB-HW5">
                                         <barButtonItem key="leftBarButtonItem" image="outline_close_white_24pt" id="CtV-ta-y70">
                                             <color key="tintColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <connections>
+                                                <action selector="onCancelButtonClick:" destination="4lf-b9-0TX" id="isN-IT-23H"/>
+                                            </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="送信" image="outline_send_white_24pt" id="1AJ-Qn-khi">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="onSendButtonClick:" destination="4lf-b9-0TX" id="hrn-Sl-itc"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -225,7 +231,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" id="Qgx-TP-the">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="unv-x9-YL4">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="unv-x9-YL4">
                                             <rect key="frame" x="16" y="10" width="103" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="baseline_my_location_white_24pt"/>
