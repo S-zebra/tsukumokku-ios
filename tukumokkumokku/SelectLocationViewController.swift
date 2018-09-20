@@ -11,16 +11,15 @@ import MapKit
 import UIKit
 
 class SelectLocationViewController: UIViewController, UIGestureRecognizerDelegate {
-  @IBOutlet var currentLocationButton: UIBarButtonItem!
+  @IBOutlet var currentLocationButton: UIButton!
+  @IBOutlet var currentLocationLabel: UILabel!
   @IBOutlet var mapView: MKMapView!
   @IBOutlet var panGestureRcg: UIPanGestureRecognizer!
 
   var locationManager: CLLocationManager!
   var currentLocation: CLLocationCoordinate2D!
   var annotation: MKPointAnnotation!
-  var trace = false
-
-//  var autoChase: Bool = False
+  var trace = true
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -42,29 +41,32 @@ class SelectLocationViewController: UIViewController, UIGestureRecognizerDelegat
   override func viewDidAppear(_ animated: Bool) {
     // 画面真ん中にピンを置く
     setMapCenterAndPin(coordinate: mapView.region.center)
-    // トレーサー起動
+    // 位置情報の取得開始
     mapView.addAnnotation(annotation)
     mapView.addGestureRecognizer(panGestureRcg)
   }
 
-  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-    return true
-  }
-
   @IBAction func onCurrentLocationButtonClick(_ sender: Any) {
-    // トレーサー再開
+    // 位置情報の取得再開
     locationManager.startUpdatingLocation()
     locationManager.startUpdatingHeading()
     trace = true
+    currentLocationButton.isSelected = true
+  }
+
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    // パン操作を優先的にキャッチする
+    return true
   }
 
   @objc func onMapPanned(_ sender: Any) {
-    // マップをパンしたとき: ユーザーの操作に任せる
+    // マップがパンされたときは追跡を中止する
     NSLog("Map is panned")
     setMapCenterAndPin(coordinate: mapView.region.center)
     locationManager.stopUpdatingLocation()
     locationManager.stopUpdatingHeading()
     trace = false
+    currentLocationButton.isSelected = false
   }
 
   func setMapCenterAndPin(coordinate: CLLocationCoordinate2D) {
@@ -72,9 +74,22 @@ class SelectLocationViewController: UIViewController, UIGestureRecognizerDelegat
       mapView.region = MKCoordinateRegionMake(coordinate, MKCoordinateSpanMake(0.005, 0.005))
     }
     annotation.coordinate = coordinate
-    annotation.title = "現在地"
-    annotation.subtitle = String(format: "%.3f %.3f", coordinate.latitude, coordinate.longitude)
-    NSLog("Locations is set to %.4f, %.4f", coordinate.latitude, coordinate.latitude)
+    annotation.title = "この位置で確定"
+    currentLocationLabel.text = String(format: "%.5f, %.5f", coordinate.latitude, coordinate.longitude)
+    NSLog("Locations is set to %.4f, %.4f", coordinate.latitude, coordinate.longitude)
+  }
+
+  // 終了ときの処理
+
+  @IBAction func onDoneButtonClick(_ sender: Any) {
+    let postVC = presentingViewController as! PostViewController
+    postVC.currentLocation = currentLocation
+    postVC.geoLabel.text = currentLocationLabel.text
+    dismiss(animated: true, completion: nil)
+  }
+
+  @IBAction func onCancelButtonClick(_ sender: Any) {
+    dismiss(animated: true, completion: nil)
   }
 
   override func didReceiveMemoryWarning() {

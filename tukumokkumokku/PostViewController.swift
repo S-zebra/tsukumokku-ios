@@ -6,13 +6,12 @@
 //  Copyright © 2018 nakatake. All rights reserved.
 //
 
-import UIKit
 import CoreLocation
+import UIKit
 
 class PostViewController: UIViewController, UITextViewDelegate {
   @IBOutlet var contentBox: UITextView!
   @IBOutlet var geoLabel: UILabel!
-  @IBOutlet var headingLabel: UILabel!
   var currentLocation: CLLocationCoordinate2D?
 
   var api: TsukumoAPI!
