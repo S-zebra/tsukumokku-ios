@@ -71,7 +71,7 @@ class MapViewController: UIViewController {
 
 extension MapViewController: CLLocationManagerDelegate {
   func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-    CommonUtil.checkLocationPermission(status: status)
+    CommonUtil.checkLocationPermission(self, manager: manager, status: status)
   }
 
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -81,5 +81,4 @@ extension MapViewController: CLLocationManagerDelegate {
       corrected = true
     }
   }
-
 }

@@ -35,8 +35,8 @@ class LoginViewController: UIViewController {
         self.testCompleteCB(res: r)
       })
     } else { // 初回起動時
-      CommonUtil.showAlert(title: "登録が必要です",
-                             message: "このアプリをお使いいただくには、登録が必要です。登録を行ってください。")
+      CommonUtil.showAlert(self, title: "登録が必要です",
+                           message: "このアプリをお使いいただくには、登録が必要です。登録を行ってください。")
     }
   }
 
@@ -55,7 +55,7 @@ class LoginViewController: UIViewController {
       }
     } else {
       api.apiKey = nil // 誤ったキーは削除
-      CommonUtil.showAlert(title: "アカウント情報が誤っています", message: "アカウントが削除された等の理由で、ログインに失敗しました。ログインか新規登録をおこなってください。")
+      CommonUtil.showAlert(self, title: "アカウント情報が誤っています", message: "アカウントが削除された等の理由で、ログインに失敗しました。ログインか新規登録をおこなってください。")
     }
   }
 

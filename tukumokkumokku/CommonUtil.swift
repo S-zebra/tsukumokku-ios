@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 
 class CommonUtil: NSObject {
-  public static func checkLocationPermission(status: CLAuthorizationStatus) {
+  public static func checkLocationPermission(_ viewController: UIViewController, manager: CLLocationManager, status: CLAuthorizationStatus) {
     switch status {
     case .authorizedAlways, .authorizedWhenInUse:
       break
@@ -19,17 +19,17 @@ class CommonUtil: NSObject {
       manager.requestWhenInUseAuthorization()
       break
     case .denied:
-      showAlert(title: "位置情報が拒否されています", message: "「設定」から、位置情報へのアクセスを許可してください。")
+      showAlert(viewController, title: "位置情報が拒否されています", message: "「設定」から、位置情報へのアクセスを許可してください。")
       break
     case .restricted:
-      showAlert(title: "位置情報サービスがオフになっています", message: "「設定」から、位置情報サービスを有効にしてください。")
+      showAlert(viewController, title: "位置情報サービスがオフになっています", message: "「設定」から、位置情報サービスを有効にしてください。")
     }
   }
 
-  public static func showAlert(title: String, message: String) {
+  public static func showAlert(_ viewController: UIViewController, title: String, message: String) {
     let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
     let action = UIAlertAction(title: "OK", style: .default, handler: nil)
     controller.addAction(action)
-    present(controller, animated: true)
+    viewController.present(controller, animated: true)
   }
 }

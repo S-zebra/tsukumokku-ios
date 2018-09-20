@@ -105,7 +105,7 @@ class SelectLocationViewController: UIViewController, UIGestureRecognizerDelegat
 extension SelectLocationViewController: CLLocationManagerDelegate {
 
   func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-    CommonUtil.checkLocationPermission(status: status)
+    CommonUtil.checkLocationPermission(self, manager: manager, status: status)
   }
   
   // 位置情報の更新時
