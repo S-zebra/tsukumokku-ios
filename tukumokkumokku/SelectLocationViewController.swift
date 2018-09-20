@@ -19,7 +19,7 @@ class SelectLocationViewController: UIViewController, UIGestureRecognizerDelegat
   var locationManager: CLLocationManager!
   var currentLocation: CLLocationCoordinate2D!
   var annotation: MKPointAnnotation!
-  var trace = true
+  var trace = false
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -41,9 +41,13 @@ class SelectLocationViewController: UIViewController, UIGestureRecognizerDelegat
   override func viewDidAppear(_ animated: Bool) {
     // 画面真ん中にピンを置く
     setMapCenterAndPin(coordinate: mapView.region.center)
-    // 位置情報の取得開始
     mapView.addAnnotation(annotation)
+
+    // ジェスチャー認識開始
     mapView.addGestureRecognizer(panGestureRcg)
+
+    // 位置情報取得開始
+    onCurrentLocationButtonClick("_")
   }
 
   @IBAction func onCurrentLocationButtonClick(_ sender: Any) {
@@ -79,8 +83,7 @@ class SelectLocationViewController: UIViewController, UIGestureRecognizerDelegat
     NSLog("Locations is set to %.4f, %.4f", coordinate.latitude, coordinate.longitude)
   }
 
-  // 終了ときの処理
-
+  // 終了の処理
   @IBAction func onDoneButtonClick(_ sender: Any) {
     let postVC = presentingViewController as! PostViewController
     postVC.currentLocation = currentLocation
