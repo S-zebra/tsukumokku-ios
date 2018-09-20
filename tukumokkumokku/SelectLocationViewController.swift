@@ -71,6 +71,7 @@ class SelectLocationViewController: UIViewController, UIGestureRecognizerDelegat
     locationManager.stopUpdatingHeading()
     trace = false
     currentLocationButton.isSelected = false
+    currentLocation = mapView.region.center
   }
 
   func setMapCenterAndPin(coordinate: CLLocationCoordinate2D) {
@@ -102,6 +103,11 @@ class SelectLocationViewController: UIViewController, UIGestureRecognizerDelegat
 }
 
 extension SelectLocationViewController: CLLocationManagerDelegate {
+
+  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    CommonUtil.checkLocationPermission(status: status)
+  }
+  
   // 位置情報の更新時
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     currentLocation = locations[0].coordinate

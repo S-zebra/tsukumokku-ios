@@ -15,11 +15,6 @@ class LoginViewController: UIViewController {
     super.viewDidLoad()
   }
 
-  override func didReceiveMemoryWarning() {
-    // Dispose of any resources that can be recreated.
-    super.didReceiveMemoryWarning()
-  }
-
   override func viewDidAppear(_ animated: Bool) {
     // 戻ってきたときに続行
     NotificationCenter.default.addObserver(self,
@@ -40,7 +35,7 @@ class LoginViewController: UIViewController {
         self.testCompleteCB(res: r)
       })
     } else { // 初回起動時
-      showLoginRequiredAlert(title: "登録が必要です",
+      CommonUtil.showAlert(title: "登録が必要です",
                              message: "このアプリをお使いいただくには、登録が必要です。登録を行ってください。")
     }
   }
@@ -60,7 +55,7 @@ class LoginViewController: UIViewController {
       }
     } else {
       api.apiKey = nil // 誤ったキーは削除
-      showLoginRequiredAlert(title: "アカウント情報が誤っています", message: "アカウントが削除された等の理由で、ログインに失敗しました。ログインか新規登録をおこなってください。")
+      CommonUtil.showAlert(title: "アカウント情報が誤っています", message: "アカウントが削除された等の理由で、ログインに失敗しました。ログインか新規登録をおこなってください。")
     }
   }
 
@@ -68,19 +63,5 @@ class LoginViewController: UIViewController {
   func moveToMap() {
     let mapScene = storyboard!.instantiateViewController(withIdentifier: "mapScene")
     present(mapScene, animated: true, completion: nil)
-  }
-
-  func showLoginRequiredAlert(title: String, message: String) {
-    if objc_getClass("UIAlertController") != nil { // >= iOS 8
-      let alertController = UIAlertController(title: title,
-                                              message: message,
-                                              preferredStyle: .alert)
-      let okAction = UIAlertAction(title: "OK", style: .default) {
-        _ in
-        UIApplication.shared.open(TsukumoAPI.serverUrl)
-      }
-      alertController.addAction(okAction)
-      present(alertController, animated: true, completion: nil)
-    }
   }
 }
