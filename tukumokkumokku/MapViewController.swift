@@ -40,48 +40,34 @@ class MapViewController: UIViewController {
 }
 
 extension MapViewController: CLLocationManagerDelegate {
-  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-    switch status {
-    case .authorizedAlways, .authorizedWhenInUse:
-      NSLog("Location allowed")
-      break
-    case .notDetermined:
-      manager.requestWhenInUseAuthorization()
-      break
-    case .restricted:
-      showAlert(title: "位置情報サービスが無効です", message: "現在地を取得できません。位置情報サービスを有効にしてください。")
-      break
-    case .denied:
-      let appName: String? = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
-      showAlert(title: "位置情報にアクセスできません", message: "現在地を取得できません。「設定」から「\(appName ?? "このアプリ")」に位置情報へのアクセスを許可してください。")
-    }
-  }
+
 
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     currentLocation = locations[0].coordinate
     mapView.setCenter(currentLocation!, animated: true)
-    // 投稿を取得
-    api.getPosts(location: currentLocation!, onComplete: { posts in
-      posts.forEach({ post in
-        let locationOfPost = CLLocationCoordinate2DMake(CLLocationDegrees(post.lat), CLLocationDegrees(post.lon))
+//    // 投稿を取得
+//    api.getPosts(location: currentLocation!, onComplete: { posts in
+//      posts.forEach({ post in
+//        let locationOfPost = CLLocationCoordinate2DMake(CLLocationDegrees(post.lat), CLLocationDegrees(post.lon))
+//
+//        //同一のものは飛ばす
+//        self.annotations.forEach({ a in
+//          if a.coordinate.latitude == locationOfPost.latitude
+//            && a.coordinate.longitude == locationOfPost.longitude {
+//            return
+//          }
+//        })
+//
+//        let annotation = MKPointAnnotation()
+//        annotation.coordinate = locationOfPost
+//        annotation.title = post.text.prefix(7).appending("…") // 7文字ぐらい？
+//        self.annotations.append(annotation)
+//        DispatchQueue.main.async {
+//          self.mapView.addAnnotations(self.annotations)
+//        }
+//      })
+//    })
 
-        //同一のものは飛ばす
-        self.annotations.forEach({ a in
-          if a.coordinate.latitude == locationOfPost.latitude
-            && a.coordinate.longitude == locationOfPost.longitude {
-            return
-          }
-        })
-
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = locationOfPost
-        annotation.title = post.text.prefix(7).appending("…") // 7文字ぐらい？
-        self.annotations.append(annotation)
-        DispatchQueue.main.async {
-          self.mapView.addAnnotations(self.annotations)
-        }
-      })
-    })
   }
 
   func showAlert(title: String, message: String) {

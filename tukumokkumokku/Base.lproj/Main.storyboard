@@ -134,10 +134,10 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="44"/>
                                 <items>
                                     <barButtonItem title="Item" id="zep-3w-tE8">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" id="Eck-Gy-lNy">
-                                            <rect key="frame" x="16" y="10" width="24" height="24"/>
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" id="Eck-Gy-lNy">
+                                            <rect key="frame" x="16" y="10" width="132" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" image="outline_location_on_black_24pt"/>
+                                            <state key="normal" title="位置情報" image="outline_location_on_black_24pt"/>
                                             <connections>
                                                 <segue destination="W6w-iF-qDR" kind="presentation" id="Jxq-0g-5JF"/>
                                             </connections>
@@ -145,28 +145,19 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="bpg-uw-Yn0">
                                         <view key="customView" contentMode="scaleToFill" id="da1-oC-ymm">
-                                            <rect key="frame" x="64" y="5.5" width="295" height="33"/>
+                                            <rect key="frame" x="148" y="5.5" width="211" height="33"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="取得中…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5rM-fi-Kjd">
-                                                    <rect key="frame" x="8" y="6" width="66" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="330°" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="urM-hg-7Vs">
-                                                    <rect key="frame" x="82" y="6.5" width="213" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5rM-fi-Kjd">
+                                                    <rect key="frame" x="8" y="16.5" width="0.0" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="urM-hg-7Vs" firstAttribute="centerY" secondItem="da1-oC-ymm" secondAttribute="centerY" id="Oep-Jd-gmX"/>
-                                                <constraint firstItem="5rM-fi-Kjd" firstAttribute="centerY" secondItem="da1-oC-ymm" secondAttribute="centerY" id="Q5Z-gf-b2W"/>
-                                                <constraint firstItem="urM-hg-7Vs" firstAttribute="leading" secondItem="5rM-fi-Kjd" secondAttribute="trailing" constant="8" id="UuW-G1-fa7"/>
+                                                <constraint firstItem="5rM-fi-Kjd" firstAttribute="centerY" secondItem="da1-oC-ymm" secondAttribute="centerY" id="HLm-18-1MA"/>
                                                 <constraint firstItem="5rM-fi-Kjd" firstAttribute="leading" secondItem="da1-oC-ymm" secondAttribute="leading" constant="8" id="cjK-pf-cvJ"/>
-                                                <constraint firstAttribute="trailing" secondItem="urM-hg-7Vs" secondAttribute="trailing" id="zdW-zT-ZNU"/>
                                             </constraints>
                                         </view>
                                     </barButtonItem>
@@ -193,7 +184,6 @@
                     <connections>
                         <outlet property="contentBox" destination="RoJ-xG-xAM" id="ZI4-k5-ipq"/>
                         <outlet property="geoLabel" destination="5rM-fi-Kjd" id="YQJ-5r-Qtj"/>
-                        <outlet property="headingLabel" destination="urM-hg-7Vs" id="6zN-gV-RFG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K7C-KJ-jAI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -215,12 +205,18 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textAttributes>
                                 <items>
-                                    <navigationItem title="現在地を選択" id="3J1-lP-Eaa">
+                                    <navigationItem title="位置情報を設定" id="3J1-lP-Eaa">
                                         <barButtonItem key="leftBarButtonItem" image="outline_close_white_24pt" id="8dd-CS-8ME">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="onCancelButtonClick:" destination="W6w-iF-qDR" id="dCD-v2-LbG"/>
+                                            </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Item" image="baseline_check_white_24pt" id="hD7-Ed-pRh">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="onDoneButtonClick:" destination="W6w-iF-qDR" id="EAe-gE-QlE"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -228,10 +224,33 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPJ-RR-cqm">
                                 <rect key="frame" x="0.0" y="64" width="375" height="44"/>
                                 <items>
-                                    <barButtonItem title="Item" image="baseline_my_location_white_24pt" id="cyG-py-KeI">
-                                        <connections>
-                                            <action selector="onCurrentLocationButtonClick:" destination="W6w-iF-qDR" id="Flj-GY-Ca2"/>
-                                        </connections>
+                                    <barButtonItem style="plain" id="Qgx-TP-the">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="unv-x9-YL4">
+                                            <rect key="frame" x="16" y="10" width="103" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="baseline_my_location_white_24pt"/>
+                                            <connections>
+                                                <action selector="onCurrentLocationButtonClick:" destination="W6w-iF-qDR" eventType="touchUpInside" id="0EB-C3-Egz"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" id="h3q-CN-oDv">
+                                        <view key="customView" contentMode="scaleToFill" id="ySU-hS-SJa">
+                                            <rect key="frame" x="119" y="5.5" width="240" height="33"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w1I-9u-3Ea">
+                                                    <rect key="frame" x="8" y="16.5" width="0.0" height="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="w1I-9u-3Ea" firstAttribute="centerY" secondItem="ySU-hS-SJa" secondAttribute="centerY" id="pvY-dR-tNz"/>
+                                                <constraint firstItem="w1I-9u-3Ea" firstAttribute="leading" secondItem="ySU-hS-SJa" secondAttribute="leading" constant="8" id="tJk-Ln-MiI"/>
+                                            </constraints>
+                                        </view>
                                     </barButtonItem>
                                 </items>
                                 <color key="barTintColor" white="0.94999999999999996" alpha="1" colorSpace="calibratedWhite"/>
@@ -260,7 +279,8 @@
                         <viewLayoutGuide key="safeArea" id="3hL-x4-IWF"/>
                     </view>
                     <connections>
-                        <outlet property="currentLocationButton" destination="cyG-py-KeI" id="keP-I5-XBK"/>
+                        <outlet property="currentLocationButton" destination="unv-x9-YL4" id="2Gc-Av-zlU"/>
+                        <outlet property="currentLocationLabel" destination="w1I-9u-3Ea" id="vh4-fB-VHJ"/>
                         <outlet property="mapView" destination="wez-j9-ekV" id="GI1-Hn-M4f"/>
                         <outlet property="panGestureRcg" destination="tVB-HQ-DQy" id="VCF-7M-hsK"/>
                     </connections>
