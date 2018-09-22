@@ -9,16 +9,29 @@
 import CoreLocation
 import UIKit
 
-class PostViewController: UIViewController, UITextViewDelegate {
+class PostViewController: UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate {
   @IBOutlet var contentBox: UITextView!
   @IBOutlet var geoLabel: UILabel!
+  @IBOutlet var geoToolbar: UIToolbar!
+  @IBOutlet var TapGestureRcg: UITapGestureRecognizer!
+
   var currentLocation: CLLocationCoordinate2D?
 
   var api: TsukumoAPI!
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view.
+
     api = TsukumoAPI.shared
+
+    // バー全体に対し、タッチを有効化
+    TapGestureRcg.addTarget(self, action: #selector(onToolbarTapped(_:)))
+    geoToolbar.addGestureRecognizer(TapGestureRcg)
+  }
+
+  @objc func onToolbarTapped(_ sender: Any) {
+    let slScene = storyboard!.instantiateViewController(withIdentifier: "selectLocationScene")
+    present(slScene, animated: true, completion: nil)
   }
 
   @IBAction func onCancelButtonClick(_ sender: Any) {
