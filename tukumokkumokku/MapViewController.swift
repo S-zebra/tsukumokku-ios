@@ -25,6 +25,7 @@ class MapViewController: UIViewController {
     locationManager = CLLocationManager()
     locationManager.delegate = self
     locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+    mapView.delegate = self
     // Do any additional setup after loading the view.
   }
 
@@ -62,6 +63,15 @@ class MapViewController: UIViewController {
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
+  }
+}
+
+extension MapViewController: MKMapViewDelegate {
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    let pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "")
+    pinView.canShowCallout = true
+    pinView.animatesDrop = true
+    return pinView
   }
 }
 
