@@ -284,6 +284,7 @@
 				TargetAttributes = {
 					25C6EAC02149718F0024DE1E = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -292,10 +293,12 @@
 					};
 					25C6EAD4214971920024DE1E = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 						TestTargetID = 25C6EAC02149718F0024DE1E;
 					};
 					25C6EADF214971920024DE1E = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 						TestTargetID = 25C6EAC02149718F0024DE1E;
 					};
 				};
