@@ -19,16 +19,16 @@ class CommonUtil: NSObject {
       manager.requestWhenInUseAuthorization()
       break
     case .denied:
-      showAlert(viewController, title: "位置情報が拒否されています", message: "「設定」から、位置情報へのアクセスを許可してください。")
+      showAlert(viewController, title: "位置情報が拒否されています", message: "「設定」から、位置情報へのアクセスを許可してください。", handler: nil)
       break
     case .restricted:
-      showAlert(viewController, title: "位置情報サービスがオフになっています", message: "「設定」から、位置情報サービスを有効にしてください。")
+      showAlert(viewController, title: "位置情報サービスがオフになっています", message: "「設定」から、位置情報サービスを有効にしてください。", handler: nil)
     }
   }
 
-  public static func showAlert(_ viewController: UIViewController, title: String, message: String) {
+  public static func showAlert(_ viewController: UIViewController, title: String, message: String, handler: ((UIAlertAction) -> Void)?) {
     let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
-    let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+    let action = UIAlertAction(title: "OK", style: .default, handler: handler)
     controller.addAction(action)
     viewController.present(controller, animated: true)
   }

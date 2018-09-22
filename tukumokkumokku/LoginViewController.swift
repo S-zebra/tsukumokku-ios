@@ -10,6 +10,8 @@ import UIKit
 
 class LoginViewController: UIViewController {
   let api = TsukumoAPI.shared
+  @IBOutlet var waitMoreLabel: UILabel!
+
   override func viewDidLoad() {
     // Do any additional setup after loading the view, typically from a nib.
     super.viewDidLoad()
@@ -23,6 +25,9 @@ class LoginViewController: UIViewController {
                                            object: nil)
     // 最初の試行
     tryLogin()
+    Timer(timeInterval: 3, repeats: false, block: { _ in
+      self.waitMoreLabel.isHidden = false
+    })
   }
 
   @objc func tryLogin() {
@@ -36,8 +41,13 @@ class LoginViewController: UIViewController {
       })
     } else { // 初回起動時
       CommonUtil.showAlert(self, title: "登録が必要です",
-                           message: "このアプリをお使いいただくには、登録が必要です。登録を行ってください。")
+                           message: "このアプリをお使いいただくには、登録が必要です。登録を行ってください。",
+                           handler: redirectToLoginPage(_:))
     }
+  }
+
+  func redirectToLoginPage(_ action: UIAlertAction) {
+    UIApplication.shared.open(URL(string: "https://tsukumokku.herokuapp.com")!, options: [:], completionHandler: nil)
   }
 
   // ログイン結果が帰ってきたときの処理
@@ -55,7 +65,10 @@ class LoginViewController: UIViewController {
       }
     } else {
       api.apiKey = nil // 誤ったキーは削除
-      CommonUtil.showAlert(self, title: "アカウント情報が誤っています", message: "アカウントが削除された等の理由で、ログインに失敗しました。ログインか新規登録をおこなってください。")
+      CommonUtil.showAlert(self,
+                           title: "アカウント情報が誤っています",
+                           message: "アカウントが削除された等の理由で、ログインに失敗しました。ログインか新規登録をおこなってください。",
+                           handler: redirectToLoginPage(_:))
     }
   }
 
