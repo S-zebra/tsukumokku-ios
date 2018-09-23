@@ -12,11 +12,12 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   static var passedKey: String?
+  static let nearPostsNotificationCat: String = "POSTS_ARE_NEAR_HERE"
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
     self.window?.tintColor = UIColor.tsukumoYellow()
-//    UINavigationBar.appearance().barStyle = .blackOpaque
+    application.registerUserNotificationSettings(createNotificationOptions())
     return true
   }
 
@@ -56,5 +57,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension UIColor {
   static func tsukumoYellow() -> UIColor {
     return UIColor(red: 0.7, green: 0.61, blue: 0, alpha: 1)
+  }
+}
+
+extension AppDelegate {
+  private func createNotificationOptions() -> UIUserNotificationSettings {
+    let openAction = UIMutableUserNotificationAction()
+    openAction.title = "見る"
+    openAction.identifier = "OPEN"
+    openAction.activationMode = .foreground
+    openAction.isDestructive = false
+    openAction.isAuthenticationRequired = true
+
+    let dismissAction = UIMutableUserNotificationAction()
+    dismissAction.title = "閉じる"
+    dismissAction.identifier = "DISMISS"
+    dismissAction.activationMode = .background
+    dismissAction.isDestructive = false
+    dismissAction.isAuthenticationRequired = false
+
+    let interactiveCategory = UIMutableUserNotificationCategory()
+    interactiveCategory.identifier = AppDelegate.nearPostsNotificationCat
+    interactiveCategory.setActions([openAction, dismissAction], for: .minimal)
+
+    let categories = NSSet(object: interactiveCategory) as! Set<UIUserNotificationCategory>
+    return UIUserNotificationSettings(types: .alert, categories: categories)
   }
 }

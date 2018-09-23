@@ -10,6 +10,7 @@ import CoreLocation
 import Foundation
 
 struct Post: Codable {
+  var id: Int
   var lat, lon: Float
   var text: String
 }
@@ -92,7 +93,8 @@ class TsukumoAPI {
     req.httpMethod = "POST"
     req.setValue("application/json", forHTTPHeaderField: "Content-Type")
     req.setValue(apiKey!, forHTTPHeaderField: "API_TOKEN")
-    let post = Post(lat: Float(location.latitude), lon: Float(location.longitude), text: text)
+    //idは何でも良い (サーバー側で見てない)
+    let post = Post(id: 0, lat: Float(location.latitude), lon: Float(location.longitude), text: text)
     let encoder = JSONEncoder()
     let data = try encoder.encode(post)
     let task = URLSession.shared.uploadTask(with: req, from: data, completionHandler: { _, _, _ in
@@ -108,7 +110,8 @@ class TsukumoAPI {
     list.forEach({ item in
       let post = item as! NSDictionary
       NSLog(post.description)
-      posts.append(Post(lat: (post.value(forKey: "latitude") as! NSNumber).floatValue,
+      posts.append(Post(id: (post.value(forKey: "id") as! NSNumber).intValue,
+                        lat: (post.value(forKey: "latitude") as! NSNumber).floatValue,
                         lon: (post.value(forKey: "longitude") as! NSNumber).floatValue,
                         text: post.value(forKey: "text") as! String))
 

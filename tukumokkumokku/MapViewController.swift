@@ -36,13 +36,15 @@ class MapViewController: UIViewController {
   }
 
   @IBAction func refreshButtonTappeed(_ sender: Any) {
-    updateLocations()
+    corrected = false
+    updatePosts()
   }
 
-  func updateLocations() {
+  func updatePosts() {
     // 投稿を取得
     api.getPosts(location: currentLocation!, onComplete: { posts in
       var annotations = [MKAnnotation]()
+      var notifiers = [UILocalNotification]()
       posts.forEach({ post in
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(post.lat), CLLocationDegrees(post.lon))
@@ -52,12 +54,32 @@ class MapViewController: UIViewController {
           annotation.title = post.text // 7文字ぐらい？
         }
         annotations.append(annotation)
+        notifiers.append(self.createNotifier(post: post, radius: 30))
       })
       DispatchQueue.main.async {
         self.mapView.removeAnnotations(self.mapView.annotations)
         self.mapView.addAnnotations(annotations)
+        notifiers.forEach({ item in
+          UIApplication.shared.scheduleLocalNotification(item)
+        })
       }
     })
+  }
+
+  // 参考: https://qiita.com/shindooo/items/edb6d4923fbf713a9777
+  private func createNotifier(post: Post, radius: Float) -> UILocalNotification {
+    let region: CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(post.lat),
+                                                                                       CLLocationDegrees(post.lon)),
+                                                    radius: CLLocationDistance(radius),
+                                                    identifier: post.id.description)
+    // 通知本体 (UILocalNotification)を作成
+    let notification: UILocalNotification = UILocalNotification()
+    notification.soundName = UILocalNotificationDefaultSoundName // 既定の通知音
+    notification.alertBody = "この付近に投稿があります" // メッセージ
+    notification.region = region // 領域
+    notification.regionTriggersOnce = false // 一度のみか否か
+    notification.category = AppDelegate.nearPostsNotificationCat
+    return notification
   }
 
   override func didReceiveMemoryWarning() {
@@ -77,15 +99,24 @@ extension MapViewController: MKMapViewDelegate {
 
 extension MapViewController: CLLocationManagerDelegate {
   func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-    CommonUtil.checkLocationPermission(self, manager: manager, status: status)
+    switch status {
+    case .authorizedAlways, .authorizedWhenInUse:
+
+      break
+    case .notDetermined:
+      locationManager.requestWhenInUseAuthorization()
+    default:
+      break
+    }
   }
 
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     currentLocation = locations[0].coordinate
+    NSLog("Location Updated. Lat: \(currentLocation?.latitude), Lon: \(currentLocation?.longitude )")
     if !corrected {
       mapView.setRegion(MKCoordinateRegionMake(currentLocation!, zoomedSpan), animated: true)
       corrected = true
-      updateLocations()
+      updatePosts()
     }
   }
 }
