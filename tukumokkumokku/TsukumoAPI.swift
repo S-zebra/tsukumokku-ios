@@ -75,6 +75,7 @@ class TsukumoAPI {
     // resume()した時点で非同期になっている
 
     let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, _ in
+      NSLog("Data arrived")
       do {
         let json = try JSONSerialization.jsonObject(with: data!,
                                                     options: JSONSerialization.ReadingOptions.allowFragments)

@@ -14,16 +14,19 @@ class MapViewController: UIViewController {
   @IBOutlet var mapView: MKMapView!
   @IBOutlet var panGestureRcg: UIPanGestureRecognizer!
   @IBOutlet var currentLocationButton: UIButton!
+  @IBOutlet var ToastNotification: UIVisualEffectView!
+  @IBOutlet var NotificationLabel: UILabel!
 
   var locationManager: CLLocationManager!
   var currentLocation: CLLocationCoordinate2D?
   var notifiers = [UILocalNotification]()
-  let zoomedSpan = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-  let annotationTitleCount = 7
   let api = TsukumoAPI.shared
+
+  var pinPostDict: Dictionary<Int, Post>!
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    pinPostDict = Dictionary()
     locationManager = CLLocationManager()
     locationManager.delegate = self
     locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
@@ -36,8 +39,9 @@ class MapViewController: UIViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     locationManager.startUpdatingLocation()
-    let newRegion = MKCoordinateRegionMake(mapView.region.center, zoomedSpan)
-    mapView.setRegion(newRegion, animated: true)
+    let newRegion = MKCoordinateRegionMake(mapView.region.center,
+                                           MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
+    mapView.setRegion(newRegion, animated: false)
     updatePosts()
   }
 
@@ -61,25 +65,29 @@ class MapViewController: UIViewController {
   func updatePosts() {
     // 投稿を取得
     api.getPosts(location: mapView.region.center, onComplete: { posts in
+
+      // すでにある投稿をリセット
       DispatchQueue.main.async {
+        self.pinPostDict.removeAll()
+        self.mapView.removeAnnotations(self.mapView.annotations)
         self.notifiers.forEach({ item in
           UIApplication.shared.cancelLocalNotification(item)
         })
       }
+
       var annotations = [MKAnnotation]()
       posts.forEach({ post in
         let annotation = MKPointAnnotation()
-        annotation.coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(post.lat), CLLocationDegrees(post.lon))
-        if post.text.count > self.annotationTitleCount {
-          annotation.title = post.text.prefix(self.annotationTitleCount).appending("…") // 7文字ぐらい？
-        } else {
-          annotation.title = post.text // 7文字ぐらい？
-        }
+        annotation.coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(post.lat),
+                                                           CLLocationDegrees(post.lon))
         annotations.append(annotation)
+        self.pinPostDict[annotation.hash] = post
+        NSLog("Added " + self.pinPostDict.description)
         self.notifiers.append(self.createNotifier(post: post, radius: 30))
       })
+      NSLog("Final hash value: " + String(self.pinPostDict.count))
+
       DispatchQueue.main.async {
-        self.mapView.removeAnnotations(self.mapView.annotations)
         self.mapView.addAnnotations(annotations)
         self.notifiers.forEach({ item in
           NSLog("Notification regisitered, \(item.region?.description)")
@@ -87,6 +95,7 @@ class MapViewController: UIViewController {
         })
       }
     })
+
   }
 
   // 参考: https://qiita.com/shindooo/items/edb6d4923fbf713a9777
@@ -107,18 +116,28 @@ class MapViewController: UIViewController {
     locationManager.startMonitoring(for: region)
     return notification
   }
-
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
 }
 
 extension MapViewController: MKMapViewDelegate {
+  // ピンが落ちてきたときに呼ばれる
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-    let pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "")
-    pinView.canShowCallout = true
+    if annotation is MKUserLocation {
+      return nil
+    }
+    let post: Post! = pinPostDict[annotation.hash]
+    let pinView: MKPinAnnotationView!
+    let accView = ShowPostView.createInstance()
+    if post != nil {
+      pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: String(post.id))
+      accView.BodyTextBox.text = post.text
+    } else {
+      NSLog("Here are the annotation hashes: " + pinPostDict.description)
+      NSLog(String(annotation.hash) + " does not found")
+      pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "")
+    }
     pinView.animatesDrop = true
+    pinView.canShowCallout = true
+    pinView.detailCalloutAccessoryView = accView
     return pinView
   }
 }

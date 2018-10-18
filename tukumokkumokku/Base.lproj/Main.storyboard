@@ -28,11 +28,11 @@
                                     <navigationItem title="現在地周辺" id="VZz-Ku-LMJ">
                                         <barButtonItem key="backBarButtonItem" title="戻るボタン" id="A2t-Em-BN9"/>
                                         <barButtonItem key="leftBarButtonItem" style="plain" id="cDh-yh-OmC">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OAm-ef-1Sb">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OAm-ef-1Sb">
                                                 <rect key="frame" x="16" y="10" width="80" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" image="baseline_my_location_white_24pt"/>
+                                                <state key="normal" image="baseline_location_on_black_24pt"/>
                                                 <connections>
                                                     <action selector="currentLocationButtonTapped:" destination="iug-ZV-Z3w" eventType="touchUpInside" id="ti6-ub-YyE"/>
                                                 </connections>
@@ -62,6 +62,29 @@
                                     <outletCollection property="gestureRecognizers" destination="ZGx-gr-bzo" appends="YES" id="bUj-HL-a0O"/>
                                 </connections>
                             </mapView>
+                            <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BM1-ya-52P">
+                                <rect key="frame" x="8" y="595" width="359" height="40"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="g1f-Xy-bh8">
+                                    <rect key="frame" x="0.0" y="0.0" width="359" height="40"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="位置情報の追跡は有効です" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rxW-RV-PfO">
+                                            <rect key="frame" x="75.5" y="9.5" width="208" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="rxW-RV-PfO" firstAttribute="centerX" secondItem="g1f-Xy-bh8" secondAttribute="centerX" id="O94-OD-9CD"/>
+                                        <constraint firstItem="rxW-RV-PfO" firstAttribute="centerY" secondItem="g1f-Xy-bh8" secondAttribute="centerY" id="k9I-Zc-DtG"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="XkW-tQ-ZDu"/>
+                                </constraints>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" red="0.66666666666666663" green="0.54509803921568623" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.66666666666666663" green="0.54509803921568623" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
@@ -70,17 +93,22 @@
                         </accessibility>
                         <constraints>
                             <constraint firstItem="qMR-zr-NQg" firstAttribute="top" secondItem="SmZ-QK-Qr6" secondAttribute="bottom" id="3I6-iq-7wh"/>
+                            <constraint firstItem="BM1-ya-52P" firstAttribute="trailing" secondItem="ub4-iy-UIs" secondAttribute="trailing" constant="-8" id="DPB-B1-lDQ"/>
                             <constraint firstItem="qMR-zr-NQg" firstAttribute="leading" secondItem="ub4-iy-UIs" secondAttribute="leading" id="Ddn-E1-t02"/>
                             <constraint firstItem="SmZ-QK-Qr6" firstAttribute="top" secondItem="ub4-iy-UIs" secondAttribute="top" id="Hby-zu-z0G"/>
+                            <constraint firstItem="BM1-ya-52P" firstAttribute="leading" secondItem="ub4-iy-UIs" secondAttribute="leading" constant="8" id="MAM-7f-IWy"/>
                             <constraint firstItem="qMR-zr-NQg" firstAttribute="bottom" secondItem="ub4-iy-UIs" secondAttribute="bottom" id="MoV-dR-q79"/>
                             <constraint firstItem="qMR-zr-NQg" firstAttribute="trailing" secondItem="ub4-iy-UIs" secondAttribute="trailing" id="Qqu-Lx-2oN"/>
                             <constraint firstItem="SmZ-QK-Qr6" firstAttribute="leading" secondItem="ub4-iy-UIs" secondAttribute="leading" id="a15-st-vJ1"/>
                             <constraint firstItem="SmZ-QK-Qr6" firstAttribute="trailing" secondItem="ub4-iy-UIs" secondAttribute="trailing" id="fb8-Ls-Ze7"/>
+                            <constraint firstItem="ub4-iy-UIs" firstAttribute="bottom" secondItem="BM1-ya-52P" secondAttribute="bottom" constant="32" id="rJi-rn-k05"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ub4-iy-UIs"/>
                     </view>
                     <toolbarItems/>
                     <connections>
+                        <outlet property="NotificationLabel" destination="rxW-RV-PfO" id="4qS-lT-dHl"/>
+                        <outlet property="ToastNotification" destination="BM1-ya-52P" id="jFE-IH-QF3"/>
                         <outlet property="currentLocationButton" destination="OAm-ef-1Sb" id="DYc-C8-9PJ"/>
                         <outlet property="mapView" destination="qMR-zr-NQg" id="eRP-s0-InU"/>
                         <outlet property="panGestureRcg" destination="ZGx-gr-bzo" id="nSt-US-ocd"/>
@@ -398,6 +426,7 @@
     </scenes>
     <resources>
         <image name="baseline_check_white_24pt" width="24" height="24"/>
+        <image name="baseline_location_on_black_24pt" width="24" height="24"/>
         <image name="baseline_my_location_white_24pt" width="24" height="24"/>
         <image name="kakuni.png" width="750" height="1334"/>
         <image name="last.png" width="750" height="1334"/>
