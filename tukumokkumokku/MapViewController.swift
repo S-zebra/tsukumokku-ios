@@ -26,6 +26,7 @@ class MapViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    // Do any additional setup after loading the view.
     pinPostDict = Dictionary()
     locationManager = CLLocationManager()
     locationManager.delegate = self
@@ -34,7 +35,6 @@ class MapViewController: UIViewController {
     mapView.showsUserLocation = true
     panGestureRcg.delegate = self
     panGestureRcg.addTarget(self, action: #selector(onMapPanned(_:)))
-    // Do any additional setup after loading the view.
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -63,7 +63,6 @@ class MapViewController: UIViewController {
   }
 
   func updatePosts() {
-    // 投稿を取得
     api.getPosts(location: mapView.region.center, onComplete: { posts in
 
       // すでにある投稿をリセット
@@ -129,10 +128,10 @@ extension MapViewController: MKMapViewDelegate {
     let accView = ShowPostView.createInstance()
     if post != nil {
       pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: String(post.id))
-      accView.BodyTextBox.text = post.text
+      
     } else {
       NSLog("Here are the annotation hashes: " + pinPostDict.description)
-      NSLog(String(annotation.hash) + " does not found")
+      NSLog(String(annotation.hash) + " is not found")
       pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "")
     }
     pinView.animatesDrop = true
@@ -152,7 +151,6 @@ extension MapViewController: CLLocationManagerDelegate {
   func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
     switch status {
     case .authorizedAlways, .authorizedWhenInUse:
-
       break
     case .notDetermined:
       locationManager.requestWhenInUseAuthorization()

@@ -28,7 +28,7 @@
                                     <navigationItem title="現在地周辺" id="VZz-Ku-LMJ">
                                         <barButtonItem key="backBarButtonItem" title="戻るボタン" id="A2t-Em-BN9"/>
                                         <barButtonItem key="leftBarButtonItem" style="plain" id="cDh-yh-OmC">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OAm-ef-1Sb">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OAm-ef-1Sb">
                                                 <rect key="frame" x="16" y="10" width="80" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

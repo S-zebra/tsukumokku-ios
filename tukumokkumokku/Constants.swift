@@ -8,6 +8,5 @@
 
 import Foundation
 class Constants {
-  
-
+  static let HeldPostKey = "HeldPostKey"
 }
