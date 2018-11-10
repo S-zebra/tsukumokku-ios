@@ -87,8 +87,12 @@ class SelectLocationViewController: UIViewController, UIGestureRecognizerDelegat
   // 終了の処理
   @IBAction func onDoneButtonClick(_ sender: Any) {
     let postVC = presentingViewController as! PostViewController
+    NSLog("VC: " + postVC.description)
+    currentLocation=mapView.region.center
     postVC.currentLocation = currentLocation
+    NSLog(currentLocation!.latitude.description + ", " + currentLocation!.longitude.description)
     postVC.geoLabel.text = currentLocationLabel.text
+    NSLog("Parameters set")
     dismiss(animated: true, completion: nil)
   }
 
@@ -103,11 +107,10 @@ class SelectLocationViewController: UIViewController, UIGestureRecognizerDelegat
 }
 
 extension SelectLocationViewController: CLLocationManagerDelegate {
-
   func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
     CommonUtil.checkLocationPermission(self, manager: manager, status: status)
   }
-  
+
   // 位置情報の更新時
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     currentLocation = locations[0].coordinate

@@ -14,8 +14,8 @@ class MapViewController: UIViewController {
   @IBOutlet var mapView: MKMapView!
   @IBOutlet var panGestureRcg: UIPanGestureRecognizer!
   @IBOutlet var currentLocationButton: UIButton!
-  @IBOutlet var ToastNotification: UIVisualEffectView!
-  @IBOutlet var NotificationLabel: UILabel!
+  @IBOutlet var toastBox: UIVisualEffectView!
+  @IBOutlet var toastLabel: UILabel!
 
   var locationManager: CLLocationManager!
   var currentLocation: CLLocationCoordinate2D?
@@ -64,37 +64,55 @@ class MapViewController: UIViewController {
 
   func updatePosts() {
     api.getPosts(location: mapView.region.center, onComplete: { posts in
-
       // すでにある投稿をリセット
       DispatchQueue.main.async {
         self.pinPostDict.removeAll()
+        NSLog("Removed all KVs")
         self.mapView.removeAnnotations(self.mapView.annotations)
         self.notifiers.forEach({ item in
           UIApplication.shared.cancelLocalNotification(item)
         })
-      }
+        var annotations = [MKAnnotation]()
+        posts.forEach({ post in
 
-      var annotations = [MKAnnotation]()
-      posts.forEach({ post in
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(post.lat),
-                                                           CLLocationDegrees(post.lon))
-        annotations.append(annotation)
-        self.pinPostDict[annotation.hash] = post
-        NSLog("Added " + self.pinPostDict.description)
-        self.notifiers.append(self.createNotifier(post: post, radius: 30))
-      })
-      NSLog("Final hash value: " + String(self.pinPostDict.count))
-
-      DispatchQueue.main.async {
+          let annotation = MKPointAnnotation()
+          annotation.coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(post.lat),
+                                                             CLLocationDegrees(post.lon))
+          annotations.append(annotation)
+          self.pinPostDict[annotation.hash] = post
+          NSLog("Added to Hash :" + self.pinPostDict.description)
+          self.notifiers.append(self.createNotifier(post: post, radius: 30))
+        })
+        NSLog("Finally hash has " + String(self.pinPostDict.count) + " values")
         self.mapView.addAnnotations(annotations)
         self.notifiers.forEach({ item in
-          NSLog("Notification regisitered, \(item.region?.description)")
+          //          NSLog("Notification regisitered, \(item.region?.description)")
           UIApplication.shared.scheduleLocalNotification(item)
         })
       }
     })
+  }
 
+  public func showToast(text: String, duration: Double) {
+    toastLabel.text = text
+
+    let fadeIn = CABasicAnimation(keyPath: "opacity")
+    fadeIn.fromValue = 0
+    fadeIn.toValue = 1
+    fadeIn.isAdditive = false
+    fadeIn.isRemovedOnCompletion = false
+    fadeIn.duration = 0.75
+    fadeIn.fillMode = kCAFillModeForwards
+
+    let fadeOut = CABasicAnimation(keyPath: "opacity")
+    fadeOut.fromValue = 1
+    fadeOut.toValue = 0
+    fadeOut.isRemovedOnCompletion = false
+    fadeOut.duration = 0.75
+    fadeOut.fillMode = kCAFillModeForwards
+    fadeOut.beginTime = CACurrentMediaTime() + duration
+    toastBox.layer.add(fadeOut, forKey: "fadeOut")
+    toastBox.layer.add(fadeIn, forKey: "fadeIn")
   }
 
   // 参考: https://qiita.com/shindooo/items/edb6d4923fbf713a9777
@@ -123,12 +141,14 @@ extension MapViewController: MKMapViewDelegate {
     if annotation is MKUserLocation {
       return nil
     }
+    NSLog("Dictionary values: " + pinPostDict.description)
     let post: Post! = pinPostDict[annotation.hash]
     let pinView: MKPinAnnotationView!
     let accView = ShowPostView.createInstance()
     if post != nil {
       pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: String(post.id))
-      
+      accView.post = post
+      accView.parent = self
     } else {
       NSLog("Here are the annotation hashes: " + pinPostDict.description)
       NSLog(String(annotation.hash) + " is not found")

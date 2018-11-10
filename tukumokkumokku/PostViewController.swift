@@ -39,7 +39,10 @@ class PostViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
   }
 
   @IBAction func onSendButtonClick(_ sender: Any) {
-    if currentLocation == nil { NSLog("Location is not set!") }
+    if currentLocation == nil {
+      NSLog("Location is not set!")
+      return
+    }
     do {
       NSLog("Location OK, calling sendPost()")
       try api.sendPost(location: currentLocation!,

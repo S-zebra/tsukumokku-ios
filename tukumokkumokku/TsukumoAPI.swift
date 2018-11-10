@@ -72,10 +72,12 @@ class TsukumoAPI {
   // 投稿を取得
   func getPosts(location: CLLocationCoordinate2D, onComplete: @escaping ([Post]) -> Void) {
     let url = URL(string: TsukumoAPI.apiUrl.description + "/posts?lat=\(Float(location.latitude))&lon=\(Float(location.longitude))")!
+    NSLog("URL: " + url.absoluteString)
     // resume()した時点で非同期になっている
 
     let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, _ in
       NSLog("Data arrived")
+      NSLog(String(data: data!, encoding: String.Encoding.utf8)!)
       do {
         let json = try JSONSerialization.jsonObject(with: data!,
                                                     options: JSONSerialization.ReadingOptions.allowFragments)
@@ -94,7 +96,7 @@ class TsukumoAPI {
     req.httpMethod = "POST"
     req.setValue("application/json", forHTTPHeaderField: "Content-Type")
     req.setValue(apiKey!, forHTTPHeaderField: "API_TOKEN")
-    //idは何でも良い (サーバー側で見てない)
+    // idは何でも良い (サーバー側で見てない)
     let post = Post(id: 0, lat: Float(location.latitude), lon: Float(location.longitude), text: text)
     let encoder = JSONEncoder()
     let data = try encoder.encode(post)
