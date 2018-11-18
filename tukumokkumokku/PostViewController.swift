@@ -45,14 +45,16 @@ class PostViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     }
     do {
       NSLog("Location OK, calling sendPost()")
-      try api.sendPost(location: currentLocation!,
-                       text: contentBox.text,
+      let post = Post(id: 0, lat: Float(currentLocation!.latitude),
+                      lon: Float(currentLocation!.longitude), text: contentBox.text)
+      try api.sendPost(post: post,
                        onComplete: {
                          NSLog("Post Complete!")
                          DispatchQueue.main.async {
                            self.dismiss(animated: true, completion: nil)
                          }
-      })
+
+      }, onError: {_ in })
     } catch {
       NSLog("Encoding Error")
     }

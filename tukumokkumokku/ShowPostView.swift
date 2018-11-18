@@ -13,7 +13,6 @@ class ShowPostView: UIView {
 
   private var _post: Post!
   var post: Post {
-
     get {
       return _post
     }
@@ -24,7 +23,7 @@ class ShowPostView: UIView {
   }
 
   private static let NibName = "ShowPostView"
-  var parent:MapViewController!
+  var parent: MapViewController!
 
   static func createInstance() -> ShowPostView {
     NSLog("ShowPostView instantinated")
@@ -35,12 +34,16 @@ class ShowPostView: UIView {
 
   @IBAction func HoldButtonTapped(_ sender: Any) {
     //IDが一致していれば、全く同じ投稿であるということは確定的に明らか
+    if TsukumoAPI.getStoredPost() != nil {
+      parent.showToast(text: "すでに持っている投稿を置く必要があります", duration: Constants.TOAST_LENGTH_SHORT)
+      return
+    }
     do {
       NSLog(_post.debugDescription)
-      UserDefaults().set(try JSONEncoder().encode(_post).base64EncodedString(), forKey: Constants.HeldPostKey)
-      NSLog("The post has been successfully saved!")
-      parent.showToast(text: "投稿を持ちました", duration: 3);
-    } catch (let message){
+      try TsukumoAPI.storePost(post: _post)
+      parent.showToast(text: "投稿を持ちました", duration: Constants.TOAST_LENGTH_SHORT)
+      parent.setPutButtonVisibility(visible: true)
+    } catch let message {
       NSLog("Containing JSON Error!" + message.localizedDescription)
     }
   }

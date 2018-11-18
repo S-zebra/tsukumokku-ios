@@ -9,4 +9,6 @@
 import Foundation
 class Constants {
   static let HeldPostKey = "HeldPostKey"
+  static let TOAST_LENGTH_SHORT:Double = 3
+  static let TOAST_LENGTH_LONG:Double = 5
 }

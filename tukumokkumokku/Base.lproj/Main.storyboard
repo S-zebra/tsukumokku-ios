@@ -62,7 +62,7 @@
                                     <outletCollection property="gestureRecognizers" destination="ZGx-gr-bzo" appends="YES" id="bUj-HL-a0O"/>
                                 </connections>
                             </mapView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BM1-ya-52P">
+                            <visualEffectView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BM1-ya-52P">
                                 <rect key="frame" x="8" y="595" width="359" height="40"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="g1f-Xy-bh8">
                                     <rect key="frame" x="0.0" y="0.0" width="359" height="40"/>
@@ -90,6 +90,20 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </visualEffectView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rtz-Hn-d5W">
+                                <rect key="frame" x="267" y="72" width="100" height="43"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="cOw-1I-E74"/>
+                                    <constraint firstAttribute="height" constant="43" id="yv6-2Q-qmU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <state key="normal" title="置く" backgroundImage="button_plain_orange">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="putButtonTapped:" destination="iug-ZV-Z3w" eventType="touchUpInside" id="le7-Dz-LSi"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.66666666666666663" green="0.54509803921568623" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.66666666666666663" green="0.54509803921568623" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
@@ -98,6 +112,7 @@
                         </accessibility>
                         <constraints>
                             <constraint firstItem="qMR-zr-NQg" firstAttribute="top" secondItem="SmZ-QK-Qr6" secondAttribute="bottom" id="3I6-iq-7wh"/>
+                            <constraint firstItem="Rtz-Hn-d5W" firstAttribute="trailing" secondItem="ub4-iy-UIs" secondAttribute="trailing" constant="-8" id="6N4-bi-ceE"/>
                             <constraint firstItem="BM1-ya-52P" firstAttribute="trailing" secondItem="ub4-iy-UIs" secondAttribute="trailing" constant="-8" id="DPB-B1-lDQ"/>
                             <constraint firstItem="qMR-zr-NQg" firstAttribute="leading" secondItem="ub4-iy-UIs" secondAttribute="leading" id="Ddn-E1-t02"/>
                             <constraint firstItem="SmZ-QK-Qr6" firstAttribute="top" secondItem="ub4-iy-UIs" secondAttribute="top" id="Hby-zu-z0G"/>
@@ -107,6 +122,7 @@
                             <constraint firstItem="SmZ-QK-Qr6" firstAttribute="leading" secondItem="ub4-iy-UIs" secondAttribute="leading" id="a15-st-vJ1"/>
                             <constraint firstItem="SmZ-QK-Qr6" firstAttribute="trailing" secondItem="ub4-iy-UIs" secondAttribute="trailing" id="fb8-Ls-Ze7"/>
                             <constraint firstItem="ub4-iy-UIs" firstAttribute="bottom" secondItem="BM1-ya-52P" secondAttribute="bottom" constant="32" id="rJi-rn-k05"/>
+                            <constraint firstItem="Rtz-Hn-d5W" firstAttribute="top" secondItem="SmZ-QK-Qr6" secondAttribute="bottom" constant="8" id="z5Q-Eg-Y0t"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ub4-iy-UIs"/>
                     </view>
@@ -115,6 +131,7 @@
                         <outlet property="currentLocationButton" destination="OAm-ef-1Sb" id="DYc-C8-9PJ"/>
                         <outlet property="mapView" destination="qMR-zr-NQg" id="eRP-s0-InU"/>
                         <outlet property="panGestureRcg" destination="ZGx-gr-bzo" id="nSt-US-ocd"/>
+                        <outlet property="putButton" destination="Rtz-Hn-d5W" id="Mfe-zG-sIb"/>
                         <outlet property="toastBox" destination="BM1-ya-52P" id="gVd-j7-rPu"/>
                         <outlet property="toastLabel" destination="rxW-RV-PfO" id="LxC-Jp-uwX"/>
                     </connections>
@@ -122,7 +139,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nKh-iC-tTr" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="ZGx-gr-bzo"/>
             </objects>
-            <point key="canvasLocation" x="1684" y="134"/>
+            <point key="canvasLocation" x="1684" y="133.5832083958021"/>
         </scene>
         <!--Login-->
         <scene sceneID="Hd0-ff-c4F">
@@ -433,6 +450,7 @@
         <image name="baseline_check_white_24pt" width="24" height="24"/>
         <image name="baseline_location_on_black_24pt" width="24" height="24"/>
         <image name="baseline_my_location_white_24pt" width="24" height="24"/>
+        <image name="button_plain_orange" width="186" height="80"/>
         <image name="kakuni.png" width="750" height="1334"/>
         <image name="last.png" width="750" height="1334"/>
         <image name="outline_close_white_24pt" width="24" height="24"/>

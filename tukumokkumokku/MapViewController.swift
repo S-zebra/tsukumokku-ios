@@ -16,6 +16,7 @@ class MapViewController: UIViewController {
   @IBOutlet var currentLocationButton: UIButton!
   @IBOutlet var toastBox: UIVisualEffectView!
   @IBOutlet var toastLabel: UILabel!
+  @IBOutlet var putButton: UIButton!
 
   var locationManager: CLLocationManager!
   var currentLocation: CLLocationCoordinate2D?
@@ -35,6 +36,7 @@ class MapViewController: UIViewController {
     mapView.showsUserLocation = true
     panGestureRcg.delegate = self
     panGestureRcg.addTarget(self, action: #selector(onMapPanned(_:)))
+    putButton.isHidden = (TsukumoAPI.getStoredPost() == nil)
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -43,6 +45,7 @@ class MapViewController: UIViewController {
                                            MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
     mapView.setRegion(newRegion, animated: false)
     updatePosts()
+    showToast(text: "現在地を追跡しています", duration: Constants.TOAST_LENGTH_SHORT)
   }
 
   @objc func onMapPanned(_ sender: Any) {
@@ -60,6 +63,26 @@ class MapViewController: UIViewController {
 
   @IBAction func refreshButtonTappeed(_ sender: Any) {
     updatePosts()
+  }
+
+  func setPutButtonVisibility(visible: Bool) {
+    putButton.isHidden = !visible
+  }
+
+  @IBAction func putButtonTapped(_ sender: Any) {
+    do {
+      try api.addLocation(postId: TsukumoAPI.getStoredPost()!.id, location: currentLocation!, onComplete: {
+        DispatchQueue.main.async {
+          self.showToast(text: "投稿を置きました。", duration: Constants.TOAST_LENGTH_SHORT)
+          UserDefaults().removeObject(forKey: Constants.HeldPostKey)
+          self.putButton.isHidden = true
+        }
+      }, onError: { _ in
+        self.showToast(text: "ネットワークに問題があるため、投稿を置けませんでした。", duration: Constants.TOAST_LENGTH_SHORT)
+      })
+    } catch {
+      showToast(text: "投稿を置けませんでした", duration: Constants.TOAST_LENGTH_SHORT)
+    }
   }
 
   func updatePosts() {
@@ -101,7 +124,7 @@ class MapViewController: UIViewController {
     fadeIn.toValue = 1
     fadeIn.isAdditive = false
     fadeIn.isRemovedOnCompletion = false
-    fadeIn.duration = 0.75
+    fadeIn.duration = 0.25
     fadeIn.fillMode = kCAFillModeForwards
 
     let fadeOut = CABasicAnimation(keyPath: "opacity")

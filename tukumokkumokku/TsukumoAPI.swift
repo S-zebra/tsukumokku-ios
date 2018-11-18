@@ -15,6 +15,10 @@ struct Post: Codable {
   var text: String
 }
 
+enum APIError: Error {
+  case network(Error)
+}
+
 enum HTTPStatusCode: Int {
   case OK = 200
   case BadRequest = 400
@@ -27,8 +31,8 @@ enum HTTPStatusCode: Int {
 // クロージャ: { hoge, _(要らないとき), fuga in [処理] }
 
 class TsukumoAPI {
-  static let serverUrl = URL(string: "https://tsukumokku.herokuapp.com")!
-//  static let serverUrl = URL(string: "http://192.168.150.31:3000")!
+//  static let serverUrl = URL(string: "https://tsukumokku.herokuapp.com")!
+  static let serverUrl = URL(string: "http://192.168.150.31:3000")!
   static let apiUrl = TsukumoAPI.serverUrl.appendingPathComponent("api/v1")
 
   static let defaultsKeyToken = "ApiKey"
@@ -51,10 +55,14 @@ class TsukumoAPI {
 
   // ログイン可否の確認 (onCompleteに返される)
   // 手動で値が書き換わった、垢を消されたなどのときはfalseが返ることがある
-  func isAvailable(key: String, onComplete: @escaping (Bool) -> Void) {
+  func isAvailable(key: String, onComplete: @escaping (Bool) -> Void, onError: @escaping (Error) -> Void) {
     let url = URL(string: TsukumoAPI.apiUrl.description + "/accounts/available?token=\(key)")!
-    let task = URLSession.shared.dataTask(with: url, completionHandler: { data, urlRes, _ in
+    let task = URLSession.shared.dataTask(with: url, completionHandler: { data, urlRes, err in
       do {
+        if data == nil {
+          onError(err!)
+          return
+        }
         NSLog("url: \(String(describing: urlRes?.url!.absoluteString))")
         let obj: NSDictionary = try JSONSerialization.jsonObject(with: data!,
                                                                  options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
@@ -90,18 +98,30 @@ class TsukumoAPI {
     NSLog("Req sent.")
   }
 
+  func sendPost(post: Post, onComplete: @escaping () -> Void, onError: @escaping (Error) -> Void) throws {
+    try sendPostInternal(url: TsukumoAPI.apiUrl.appendingPathComponent("/posts"),
+                         post: post, onComplete: onComplete, onError: onError)
+  }
+
+  func addLocation(postId: Int, location: CLLocationCoordinate2D, onComplete: @escaping () -> Void, onError: @escaping (Error) -> Void) throws {
+    let post = Post(id: postId, lat: Float(location.latitude), lon: Float(location.longitude), text: "")
+    try sendPostInternal(url: TsukumoAPI.apiUrl.appendingPathComponent("/posts/locations"),
+                         post: post, onComplete: onComplete, onError: onError)
+  }
+
   // 投稿を送信
-  func sendPost(location: CLLocationCoordinate2D, text: String, onComplete: @escaping () -> Void) throws {
-    var req = URLRequest(url: TsukumoAPI.apiUrl.appendingPathComponent("/posts"))
+  private func sendPostInternal(url: URL, post: Post, onComplete: @escaping () -> Void, onError: @escaping (Error) -> Void) throws {
+    var req = URLRequest(url: url)
     req.httpMethod = "POST"
     req.setValue("application/json", forHTTPHeaderField: "Content-Type")
     req.setValue(apiKey!, forHTTPHeaderField: "API_TOKEN")
-    // idは何でも良い (サーバー側で見てない)
-    let post = Post(id: 0, lat: Float(location.latitude), lon: Float(location.longitude), text: text)
-    let encoder = JSONEncoder()
-    let data = try encoder.encode(post)
-    let task = URLSession.shared.uploadTask(with: req, from: data, completionHandler: { _, _, _ in
-      onComplete()
+    let data = try JSONEncoder().encode(post)
+    let task = URLSession.shared.uploadTask(with: req, from: data, completionHandler: { _, _, err in
+      if err == nil {
+        onComplete()
+      } else {
+        onError(err!)
+      }
     })
     task.resume()
     NSLog("Post sent")
@@ -120,5 +140,23 @@ class TsukumoAPI {
 
     })
     return posts
+  }
+
+  static func getStoredPost() -> Post? {
+    if UserDefaults().value(forKey: Constants.HeldPostKey) == nil {
+      return nil
+    }
+    let data = Data(base64Encoded: UserDefaults().value(forKey: Constants.HeldPostKey) as! String)
+    do {
+      return (data != nil) ? (try JSONDecoder().decode(Post.self, from: data!)) : nil
+    } catch {
+      NSLog("Cant decode JSON in getStoredPost()")
+      return nil
+    }
+  }
+
+  static func storePost(post: Post) throws {
+    UserDefaults().set(try JSONEncoder().encode(post).base64EncodedString(), forKey: Constants.HeldPostKey)
+    NSLog("The post has been successfully saved")
   }
 }
