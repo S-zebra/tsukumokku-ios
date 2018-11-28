@@ -11,6 +11,7 @@ import Foundation
 
 struct Post: Codable {
   var id: Int
+  var parentId: Int
   var lat, lon: Float
   var text: String
 }
@@ -31,8 +32,8 @@ enum HTTPStatusCode: Int {
 // クロージャ: { hoge, _(要らないとき), fuga in [処理] }
 
 class TsukumoAPI {
-//  static let serverUrl = URL(string: "https://tsukumokku.herokuapp.com")!
-  static let serverUrl = URL(string: "http://192.168.150.31:3000")!
+  static let serverUrl = URL(string: "https://tsukumokku.herokuapp.com")!
+//  static let serverUrl = URL(string: "http://192.168.150.31:3000")!
   static let apiUrl = TsukumoAPI.serverUrl.appendingPathComponent("api/v1")
 
   static let defaultsKeyToken = "ApiKey"
@@ -45,7 +46,7 @@ class TsukumoAPI {
     }
     set {
       _key = newValue
-      UserDefaults.standard.set(_key, forKey: TsukumoAPI.defaultsKeyToken)
+      UserDefaults.standard.set(_key, forKey: TsukumoAPI.defaultsKeyToken) // UserDefaultsに保存
     }
   }
 
@@ -77,9 +78,22 @@ class TsukumoAPI {
     NSLog("Test req. sent")
   }
 
-  // 投稿を取得
+  // IDを指定して投稿一覧を取得
+  func getPost(id: Int, onComplete: @escaping (Post?) -> Void) {
+    getPostsInternal(params: "/" + String(id), onComplete: { p in
+      onComplete(p.first)
+    })
+  }
+
+  // 位置情報を指定して投稿一覧を取得
   func getPosts(location: CLLocationCoordinate2D, onComplete: @escaping ([Post]) -> Void) {
-    let url = URL(string: TsukumoAPI.apiUrl.description + "/posts?lat=\(Float(location.latitude))&lon=\(Float(location.longitude))")!
+    getPostsInternal(params: "?lat=\(Float(location.latitude))&lon=\(Float(location.longitude))", onComplete: { posts in
+      onComplete(posts)
+    })
+  }
+
+  private func getPostsInternal(params: String, onComplete: @escaping ([Post]) -> Void) {
+    let url = URL(string: TsukumoAPI.apiUrl.description + "/posts" + params)!
     NSLog("URL: " + url.absoluteString)
     // resume()した時点で非同期になっている
 
@@ -104,7 +118,7 @@ class TsukumoAPI {
   }
 
   func addLocation(postId: Int, location: CLLocationCoordinate2D, onComplete: @escaping () -> Void, onError: @escaping (Error) -> Void) throws {
-    let post = Post(id: postId, lat: Float(location.latitude), lon: Float(location.longitude), text: "")
+    let post = Post(id: postId, parentId: -1, lat: Float(location.latitude), lon: Float(location.longitude), text: "")
     try sendPostInternal(url: TsukumoAPI.apiUrl.appendingPathComponent("/posts/locations"),
                          post: post, onComplete: onComplete, onError: onError)
   }
@@ -134,6 +148,7 @@ class TsukumoAPI {
       let post = item as! NSDictionary
       NSLog(post.description)
       posts.append(Post(id: (post.value(forKey: "id") as! NSNumber).intValue,
+                        parentId: (post.value(forKey: "parent") as! NSNumber).intValue,
                         lat: (post.value(forKey: "latitude") as! NSNumber).floatValue,
                         lon: (post.value(forKey: "longitude") as! NSNumber).floatValue,
                         text: post.value(forKey: "text") as! String))
@@ -141,6 +156,8 @@ class TsukumoAPI {
     })
     return posts
   }
+
+  // ローカルに保存するもの
 
   static func getStoredPost() -> Post? {
     if UserDefaults().value(forKey: Constants.HeldPostKey) == nil {

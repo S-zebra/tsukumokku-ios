@@ -9,13 +9,13 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-  let api = TsukumoAPI.shared
+  private let api = TsukumoAPI.shared
   @IBOutlet var waitMoreLabel: UILabel!
 
   override func viewDidLoad() {
     // Do any additional setup after loading the view, typically from a nib.
     super.viewDidLoad()
-    UserDefaults().removeObject(forKey: Constants.HeldPostKey)
+//    UserDefaults().removeObject(forKey: Constants.HeldPostKey)
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -31,29 +31,18 @@ class LoginViewController: UIViewController {
     })
   }
 
-  func testKey(key: String!) {
-    api.isAvailable(key: key, onComplete: { r in
-      self.testCompleteCB(res: r)
-    }, onError: { _ in
-      DispatchQueue.main.async {
-        CommonUtil.showAlert(self,
-                             title: "通信に失敗しました",
-                             message: "ネットワークがオフラインか、サーバーがダウンしている可能性があります。",
-                             handler: nil)
-        //TODO: ここどうしようか
-      }
-    })
-  }
-
   @objc func tryLogin() {
-    if api.apiKey == nil { // 初回起動時
+    if api.apiKey == nil && AppDelegate.passedKey == nil { // 初回起動時
+      NSLog("Key is nil")
       CommonUtil.showAlert(self, title: "登録が必要です",
                            message: "このアプリをお使いいただくには、登録が必要です。登録を行ってください。",
                            handler: redirectToLoginPage(_:))
+      return
     }
-    if AppDelegate.passedKey != nil && api.apiKey == nil { // Safariから戻ったとき
+    if AppDelegate.passedKey != nil { // Safariから戻ったとき
       testKey(key: AppDelegate.passedKey!)
     } else { // 2回目以降の起動時
+      NSLog("key: \(String(describing: api.apiKey))")
       testKey(key: api.apiKey!)
     }
   }
@@ -62,14 +51,29 @@ class LoginViewController: UIViewController {
     UIApplication.shared.open(TsukumoAPI.serverUrl, options: [:], completionHandler: nil)
   }
 
+  func testKey(key: String!) {
+    api.isAvailable(key: key, onComplete: { r in
+      NSLog("isAvailable Result: \(r)")
+      self.testCompleteCB(res: r)
+    }, onError: { _ in
+      DispatchQueue.main.async {
+        CommonUtil.showAlert(self,
+                             title: "通信に失敗しました",
+                             message: "ネットワークがオフラインか、サーバーがダウンしている可能性があります。",
+                             handler: nil)
+        // TODO: ここどうしようか
+      }
+    })
+  }
+
   // ログイン結果が帰ってきたときの処理
   // res: true -> 地図画面へ
   // false -> ログイン要求Alertを出す
   func testCompleteCB(res: Bool) {
     NSLog("Test finished, res: \(res)")
-    if res {
+    if res { // ログイン成功
       if AppDelegate.passedKey != nil {
-        api.apiKey = AppDelegate.passedKey!
+        api.apiKey = AppDelegate.passedKey! // APIクラス+UserDefaultsに保存
       }
       NSLog("Moving to map...")
       DispatchQueue.main.async {

@@ -167,11 +167,22 @@ extension MapViewController: MKMapViewDelegate {
     NSLog("Dictionary values: " + pinPostDict.description)
     let post: Post! = pinPostDict[annotation.hash]
     let pinView: MKPinAnnotationView!
-    let accView = ShowPostView.createInstance()
+    let accView = PostThreadView.createInstance()
     if post != nil {
       pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: String(post.id))
-      accView.post = post
-      accView.parent = self
+      accView.parentVC = self
+      accView.post = post //parentVCをセットする前に呼ぶと追記不能になる
+      NSLog("Parent is set from MapVC")
+      accView.addConstraint(NSLayoutConstraint(item: accView,
+                                               attribute: .width,
+                                               relatedBy: .equal,
+                                               toItem: nil, attribute: .notAnAttribute,
+                                               multiplier: 1, constant: 250))
+      accView.addConstraint(NSLayoutConstraint(item: accView,
+                                               attribute: .height,
+                                               relatedBy: .equal,
+                                               toItem: nil, attribute: .notAnAttribute,
+                                               multiplier: 1, constant: 200))
     } else {
       NSLog("Here are the annotation hashes: " + pinPostDict.description)
       NSLog(String(annotation.hash) + " is not found")
@@ -181,6 +192,14 @@ extension MapViewController: MKMapViewDelegate {
     pinView.canShowCallout = true
     pinView.detailCalloutAccessoryView = accView
     return pinView
+  }
+
+  func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+    NSLog("View: \(String(describing: view.detailCalloutAccessoryView))")
+    guard let postThView = view.detailCalloutAccessoryView as? PostThreadView else {
+      return
+    }
+    postThView.prepareThread()
   }
 }
 
@@ -204,7 +223,7 @@ extension MapViewController: CLLocationManagerDelegate {
 
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     currentLocation = locations[0].coordinate
-    NSLog("Location Updated. Lat: \(currentLocation?.latitude), Lon: \(currentLocation?.longitude)")
+//    NSLog("Location Updated. Lat: \(currentLocation?.latitude), Lon: \(currentLocation?.longitude)")
     if currentLocationButton.isSelected {
       mapView.setRegion(MKCoordinateRegionMake(currentLocation!, mapView.region.span), animated: true)
     }
