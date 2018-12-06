@@ -9,34 +9,34 @@
 import CoreLocation
 import UIKit
 
-class PostViewController: UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate {
+class PostViewController: UIViewController, UIGestureRecognizerDelegate {
   @IBOutlet var contentBox: UITextView!
   @IBOutlet var geoLabel: UILabel!
   @IBOutlet var geoToolbar: UIToolbar!
   @IBOutlet var TapGestureRcg: UITapGestureRecognizer!
+  @IBOutlet var sendButton: UIBarButtonItem!
+  @IBOutlet var contentPlaceholder: UILabel!
 
+  var locationManager: CLLocationManager!
   var currentLocation: CLLocationCoordinate2D?
 
   private var api: TsukumoAPI!
 
-  @IBOutlet var ReplyToBar: UIToolbar!
-  @IBOutlet var ReplyToLabel: UILabel!
-
-  private var _replyParent: Post?
-  var replyParent: Post? {
-    get {
-      return _replyParent
-    }
-    set {
-      _replyParent = newValue
-      if newValue != nil {
-        ReplyToBar.isHidden = false
-        ReplyToLabel.text = newValue!.text
-      } else {
-        ReplyToBar.isHidden = true
-      }
-    }
-  }
+//  private var _replyParent: Post?
+//  var replyParent: Post? {
+//    get {
+//      return _replyParent
+//    }
+//    set {
+//      _replyParent = newValue
+//      if newValue != nil {
+//        ReplyToBar.isHidden = false
+//        ReplyToLabel.text = newValue!.text
+//      } else {
+//        ReplyToBar.isHidden = true
+//      }
+//    }
+//  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -45,21 +45,25 @@ class PostViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     api = TsukumoAPI.shared
 
     // バー全体に対し、タッチを有効化
-    TapGestureRcg.addTarget(self, action: #selector(onToolbarTapped(_:)))
+//    TapGestureRcg.addTarget(self, action: #selector(onToolbarTapped(_:)))
     geoToolbar.addGestureRecognizer(TapGestureRcg)
+    locationManager = CLLocationManager()
+    locationManager.delegate = self
+    locationManager.startUpdatingLocation()
+    contentBox.delegate = self
   }
 
-  @objc func onToolbarTapped(_ sender: Any) {
+  override func viewWillAppear(_ animated: Bool) {
+    contentBox.becomeFirstResponder()
+  }
+
+  @IBAction func onToolbarTapped(_ sender: Any) {
     let slScene = storyboard!.instantiateViewController(withIdentifier: "selectLocationScene")
     present(slScene, animated: true, completion: nil)
   }
 
   @IBAction func onCancelButtonClick(_ sender: Any) {
     dismiss(animated: true, completion: nil)
-  }
-
-  @IBAction func replyCancelButtonTapped(_ sender: Any) {
-    replyParent = nil
   }
 
   @IBAction func onSendButtonClick(_ sender: Any) {
@@ -70,7 +74,7 @@ class PostViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     do {
       NSLog("Location OK, calling sendPost()")
       let post = Post(id: 0,
-                      parentId: replyParent?.id ?? -1,
+                      parentId: /* replyParent?.id ?? */ -1,
                       lat: Float(currentLocation!.latitude),
                       lon: Float(currentLocation!.longitude), text: contentBox.text)
       try api.sendPost(post: post,
@@ -94,5 +98,21 @@ class PostViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
+  }
+}
+
+extension PostViewController: CLLocationManagerDelegate {
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    let coordinate = locations.last!.coordinate
+    currentLocation = coordinate
+    geoLabel.text = String(format: "%.5f, %.5f", coordinate.latitude, coordinate.longitude)
+    sendButton.isEnabled = (contentBox.text.count > 0 && currentLocation != nil)
+  }
+}
+
+extension PostViewController: UITextViewDelegate {
+  func textViewDidChange(_ textView: UITextView) {
+    sendButton.isEnabled = (contentBox.text.count > 0 && currentLocation != nil)
+    contentPlaceholder.isHidden = (contentBox.text.count > 0)
   }
 }

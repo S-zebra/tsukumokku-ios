@@ -50,7 +50,7 @@ class PostViewCell: UICollectionViewCell {
     NSLog("Parent:" + String(describing: parent))
     let newPostView: PostViewController = parent.storyboard!.instantiateViewController(withIdentifier: "newPostScene") as! PostViewController
     parent.present(newPostView, animated: true)
-    newPostView.replyParent = _post
+//    newPostView.replyParent = _post
   }
 
   @IBAction func HoldButtonTapped(_ sender: Any) {
