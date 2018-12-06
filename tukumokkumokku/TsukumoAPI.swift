@@ -86,9 +86,11 @@ class TsukumoAPI {
   }
 
   // 位置情報を指定して投稿一覧を取得
-  func getPosts(location: CLLocationCoordinate2D, onComplete: @escaping ([Post]) -> Void) {
-    getPostsInternal(params: "?lat=\(Float(location.latitude))&lon=\(Float(location.longitude))", onComplete: { posts in
-      onComplete(posts)
+  func getPosts(location: CLLocationCoordinate2D, limit: Int, onComplete: @escaping ([Post]) -> Void) {
+    getPostsInternal(params:
+      "?lat=\(Float(location.latitude))&lon=\(Float(location.longitude))&limit=\(limit)&order=id&desc=1"
+      , onComplete: { posts in
+        onComplete(posts)
     })
   }
 

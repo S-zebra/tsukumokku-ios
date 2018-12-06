@@ -86,7 +86,7 @@ class MapViewController: UIViewController {
   }
 
   func updatePosts() {
-    api.getPosts(location: mapView.region.center, onComplete: { posts in
+    api.getPosts(location: mapView.region.center, limit: 50, onComplete: { posts in
       // すでにある投稿をリセット
       DispatchQueue.main.async {
         self.pinPostDict.removeAll()
@@ -104,14 +104,14 @@ class MapViewController: UIViewController {
           annotations.append(annotation)
           self.pinPostDict[annotation.hash] = post
           NSLog("Added to Hash :" + self.pinPostDict.description)
-          self.notifiers.append(self.createNotifier(post: post, radius: 30))
+//          self.notifiers.append(self.createNotifier(post: post, radius: 30))
         })
         NSLog("Finally hash has " + String(self.pinPostDict.count) + " values")
         self.mapView.addAnnotations(annotations)
-        self.notifiers.forEach({ item in
-          //          NSLog("Notification regisitered, \(item.region?.description)")
-          UIApplication.shared.scheduleLocalNotification(item)
-        })
+//        self.notifiers.forEach({ item in
+//          //          NSLog("Notification regisitered, \(item.region?.description)")
+//          UIApplication.shared.scheduleLocalNotification(item)
+//        })
       }
     })
   }
@@ -188,7 +188,7 @@ extension MapViewController: MKMapViewDelegate {
       NSLog(String(annotation.hash) + " is not found")
       pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "")
     }
-    pinView.animatesDrop = true
+    pinView.animatesDrop = false
     pinView.canShowCallout = true
     pinView.detailCalloutAccessoryView = accView
     return pinView
