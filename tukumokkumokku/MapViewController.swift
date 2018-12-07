@@ -25,6 +25,8 @@ class MapViewController: UIViewController {
 
   var pinPostDict: Dictionary<Int, Post>!
 
+//  var lastLocationNW, lastLocationSE: CLLocationCoordinate2D
+
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view.
@@ -78,15 +80,25 @@ class MapViewController: UIViewController {
           self.putButton.isHidden = true
         }
       }, onError: { _ in
-        self.showToast(text: "ネットワークに問題があるため、投稿を置けませんでした。", duration: Constants.TOAST_LENGTH_SHORT)
+        DispatchQueue.main.async {
+          self.showToast(text: "投稿を置けませんでした。", duration: Constants.TOAST_LENGTH_SHORT)
+        }
       })
-    } catch {
-      showToast(text: "投稿を置けませんでした", duration: Constants.TOAST_LENGTH_SHORT)
+    } catch let e {
+      NSLog("putButtonTapped error: " + String(describing: e))
+//      showToast(text: "投稿を置けませんでした", duration: Constants.TOAST_LENGTH_SHORT)
     }
   }
 
+  func updateDiagonalPoints() {}
+
   func updatePosts() {
-    api.getPosts(location: mapView.region.center, limit: 50, onComplete: { posts in
+    // 参考: http://www.mobile4children.com/?p=442
+    let nwPoint = CGPoint(x: mapView.bounds.origin.x, y: mapView.bounds.origin.y)
+    let sePoint = CGPoint(x: mapView.bounds.origin.x + mapView.bounds.size.width, y: mapView.bounds.origin.y + mapView.bounds.size.height)
+    let nwLocation = mapView.convert(nwPoint, toCoordinateFrom: mapView)
+    let seLocation = mapView.convert(sePoint, toCoordinateFrom: mapView)
+    api.getPosts(locationNW: nwLocation, locationSE: seLocation, limit: 50, onComplete: { posts in
       // すでにある投稿をリセット
       DispatchQueue.main.async {
         self.pinPostDict.removeAll()
@@ -112,6 +124,10 @@ class MapViewController: UIViewController {
 //          //          NSLog("Notification regisitered, \(item.region?.description)")
 //          UIApplication.shared.scheduleLocalNotification(item)
 //        })
+      }
+    }, onError: { _ in
+      DispatchQueue.main.async {
+        self.showToast(text: "投稿を取得できませんでした", duration: Constants.TOAST_LENGTH_SHORT)
       }
     })
   }
@@ -171,7 +187,7 @@ extension MapViewController: MKMapViewDelegate {
     if post != nil {
       pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: String(post.id))
       accView.parentVC = self
-      accView.post = post //parentVCをセットする前に呼ぶと追記不能になる
+      accView.post = post // parentVCをセットする前に呼ぶと追記不能になる
       NSLog("Parent is set from MapVC")
       accView.addConstraint(NSLayoutConstraint(item: accView,
                                                attribute: .width,

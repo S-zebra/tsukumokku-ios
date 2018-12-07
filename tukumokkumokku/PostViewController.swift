@@ -18,7 +18,18 @@ class PostViewController: UIViewController, UIGestureRecognizerDelegate {
   @IBOutlet var contentPlaceholder: UILabel!
 
   var locationManager: CLLocationManager!
-  var currentLocation: CLLocationCoordinate2D?
+  private var _currentLocation: CLLocationCoordinate2D?
+  var currentLocation: CLLocationCoordinate2D? {
+    get {
+      return _currentLocation
+    }
+    set {
+      _currentLocation = newValue
+      if newValue != nil {
+        locationManager.stopUpdatingLocation()
+      }
+    }
+  }
 
   private var api: TsukumoAPI!
 
