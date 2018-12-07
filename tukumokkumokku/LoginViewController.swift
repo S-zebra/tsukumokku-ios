@@ -26,9 +26,13 @@ class LoginViewController: UIViewController {
                                            object: nil)
     // 最初の試行
     tryLogin()
-    Timer(timeInterval: 3, repeats: false, block: { _ in
-      self.waitMoreLabel.isHidden = false
-    })
+    if #available(iOS 10.0, *) {
+      Timer(timeInterval: 3, repeats: false, block: { _ in
+        self.waitMoreLabel.isHidden = false
+      })
+    } else {
+      // Fallback on earlier versions
+    }
   }
 
   @objc func tryLogin() {
@@ -48,7 +52,7 @@ class LoginViewController: UIViewController {
   }
 
   func redirectToLoginPage(_ action: UIAlertAction) {
-    UIApplication.shared.open(TsukumoAPI.serverUrl, options: [:], completionHandler: nil)
+    UIApplication.shared.openURL(TsukumoAPI.serverUrl)
   }
 
   func testKey(key: String!) {

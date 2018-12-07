@@ -27,7 +27,7 @@
                                 <items>
                                     <navigationItem title="現在地周辺" id="VZz-Ku-LMJ">
                                         <barButtonItem key="backBarButtonItem" title="戻るボタン" id="A2t-Em-BN9"/>
-                                        <barButtonItem key="leftBarButtonItem" style="plain" id="cDh-yh-OmC">
+                                        <barButtonItem key="leftBarButtonItem" id="cDh-yh-OmC">
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OAm-ef-1Sb">
                                                 <rect key="frame" x="16" y="10" width="80" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -45,7 +45,7 @@
                                                     <segue destination="4lf-b9-0TX" kind="presentation" id="wuM-Ky-JCm"/>
                                                 </connections>
                                             </barButtonItem>
-                                            <barButtonItem style="plain" systemItem="refresh" id="u9v-Xt-RDK">
+                                            <barButtonItem systemItem="refresh" id="u9v-Xt-RDK">
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
                                                     <action selector="refreshButtonTappeed:" destination="iug-ZV-Z3w" id="CfZ-hw-ehX"/>
@@ -62,7 +62,7 @@
                                     <outletCollection property="gestureRecognizers" destination="ZGx-gr-bzo" appends="YES" id="bUj-HL-a0O"/>
                                 </connections>
                             </mapView>
-                            <visualEffectView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BM1-ya-52P">
+                            <visualEffectView opaque="NO" alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BM1-ya-52P">
                                 <rect key="frame" x="8" y="595" width="359" height="40"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="g1f-Xy-bh8">
                                     <rect key="frame" x="0.0" y="0.0" width="359" height="40"/>
