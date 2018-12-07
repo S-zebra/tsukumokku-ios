@@ -26,6 +26,7 @@ class PostViewController: UIViewController, UIGestureRecognizerDelegate {
     set {
       _currentLocation = newValue
       if newValue != nil {
+        NSLog("Location update stopped")
         locationManager.stopUpdatingLocation()
       }
     }
@@ -115,7 +116,7 @@ class PostViewController: UIViewController, UIGestureRecognizerDelegate {
 extension PostViewController: CLLocationManagerDelegate {
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     let coordinate = locations.last!.coordinate
-    currentLocation = coordinate
+    _currentLocation = coordinate
     geoLabel.text = String(format: "%.5f, %.5f", coordinate.latitude, coordinate.longitude)
     sendButton.isEnabled = (contentBox.text.count > 0 && currentLocation != nil)
   }
