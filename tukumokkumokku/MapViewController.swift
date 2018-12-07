@@ -98,7 +98,7 @@ class MapViewController: UIViewController {
     let sePoint = CGPoint(x: mapView.bounds.origin.x + mapView.bounds.size.width, y: mapView.bounds.origin.y + mapView.bounds.size.height)
     let nwLocation = mapView.convert(nwPoint, toCoordinateFrom: mapView)
     let seLocation = mapView.convert(sePoint, toCoordinateFrom: mapView)
-    api.getPosts(locationNW: nwLocation, locationSE: seLocation, limit: 50, onComplete: { posts in
+    api.getPosts(locationNW: nwLocation, locationSE: seLocation, limit: 100, onComplete: { posts in
       // すでにある投稿をリセット
       DispatchQueue.main.async {
         self.pinPostDict.removeAll()
