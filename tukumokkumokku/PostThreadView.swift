@@ -57,7 +57,7 @@ class PostThreadView: UIView {
     _replies.append(post!) //末尾に追加
     if _replies.last!.parentId > 0 {
       NSLog("This post has more parent")
-      parentVC.api.getPost(id: _replies.last!.parentId, onComplete: fetchParent)
+      parentVC.api.getPost(id: _replies.last!.parentId, onComplete: fetchParent, onError: { _ in return})
     } else {
       NSLog("This is root post")
       _replies = _replies.reversed() //ひっくり返す

@@ -79,27 +79,35 @@ class TsukumoAPI {
   }
 
   // IDを指定して投稿一覧を取得
-  func getPost(id: Int, onComplete: @escaping (Post?) -> Void) {
+  func getPost(id: Int, onComplete: @escaping (Post?) -> Void, onError: @escaping (Error) -> Void) {
     getPostsInternal(params: "/" + String(id), onComplete: { p in
       onComplete(p.first)
-    })
+    }, onError)
   }
 
   // 位置情報を指定して投稿一覧を取得
-  func getPosts(location: CLLocationCoordinate2D, limit: Int, onComplete: @escaping ([Post]) -> Void) {
+  func getPosts(locationNW: CLLocationCoordinate2D, locationSE: CLLocationCoordinate2D, limit: Int, onComplete: @escaping ([Post]) -> Void, onError: @escaping (Error) -> Void) {
+    NSLog(String(describing: locationNW) + " -> " + String(describing: locationSE))
     getPostsInternal(params:
-      "?lat=\(Float(location.latitude))&lon=\(Float(location.longitude))&limit=\(limit)&order=id&desc=1"
+      "?lat1=\(Float(locationNW.latitude))&lon1=\(Float(locationNW.longitude))&" +
+        "lat2=\(Float(locationSE.latitude))&lon2=\(Float(locationSE.longitude))&" +
+        "limit=\(limit)&order=id&desc=1"
       , onComplete: { posts in
         onComplete(posts)
-    })
+    }, onError)
   }
 
-  private func getPostsInternal(params: String, onComplete: @escaping ([Post]) -> Void) {
+  private func getPostsInternal(params: String, onComplete: @escaping ([Post]) -> Void, _ onError: @escaping (Error) -> Void) {
     let url = URL(string: TsukumoAPI.apiUrl.description + "/posts" + params)!
     NSLog("URL: " + url.absoluteString)
     // resume()した時点で非同期になっている
 
-    let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, _ in
+    let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, err in
+      if data == nil {
+        NSLog("Data not arrived")
+        onError(err!)
+        return
+      }
       NSLog("Data arrived")
       NSLog(String(data: data!, encoding: String.Encoding.utf8)!)
       do {
