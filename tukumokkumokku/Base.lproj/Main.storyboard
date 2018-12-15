@@ -27,10 +27,11 @@
                                 <items>
                                     <navigationItem title="現在地周辺" id="VZz-Ku-LMJ">
                                         <barButtonItem key="backBarButtonItem" title="戻るボタン" id="A2t-Em-BN9"/>
-                                        <barButtonItem key="leftBarButtonItem" title="Item" id="cDh-yh-OmC">
+                                        <barButtonItem key="leftBarButtonItem" id="cDh-yh-OmC">
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OAm-ef-1Sb">
                                                 <rect key="frame" x="16" y="10" width="49" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <accessibility key="accessibilityConfiguration" hint="マップを現在地に移動します。" label="現在地"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" image="baseline_my_location_white_24pt"/>
                                                 <connections>
@@ -92,6 +93,7 @@
                             </visualEffectView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rtz-Hn-d5W">
                                 <rect key="frame" x="267" y="72" width="100" height="43"/>
+                                <accessibility key="accessibilityConfiguration" hint="現在持っている投稿を、現在地に置きます。" label="投稿を置く"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="cOw-1I-E74"/>
                                     <constraint firstAttribute="height" constant="43" id="yv6-2Q-qmU"/>
@@ -106,9 +108,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.2196078431372549" green="0.33725490196078434" blue="0.46274509803921571" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <accessibility key="accessibilityConfiguration">
-                            <bool key="isElement" value="YES"/>
-                        </accessibility>
                         <constraints>
                             <constraint firstItem="qMR-zr-NQg" firstAttribute="top" secondItem="SmZ-QK-Qr6" secondAttribute="bottom" id="3I6-iq-7wh"/>
                             <constraint firstItem="Rtz-Hn-d5W" firstAttribute="trailing" secondItem="ub4-iy-UIs" secondAttribute="trailing" constant="-8" id="6N4-bi-ceE"/>
@@ -208,6 +207,7 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="位置情報を取得中…" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5rM-fi-Kjd">
                                                     <rect key="frame" x="0.0" y="0.0" width="211" height="33"/>
+                                                    <accessibility key="accessibilityConfiguration" label="現在の緯度と経度"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -221,10 +221,11 @@
                                             </constraints>
                                         </view>
                                     </barButtonItem>
-                                    <barButtonItem title="Item" id="zep-3w-tE8">
+                                    <barButtonItem id="zep-3w-tE8">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" id="Eck-Gy-lNy">
                                             <rect key="frame" x="282" y="10" width="77" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <accessibility key="accessibilityConfiguration" hint="投稿に添付する位置情報を変更します。" label="位置情報を変更"/>
                                             <state key="normal" title="変更" image="outline_location_on_black_24pt"/>
                                             <connections>
                                                 <action selector="onToolbarTapped:" destination="4lf-b9-0TX" eventType="touchUpInside" id="yXg-bB-HAP"/>
@@ -245,7 +246,7 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="新規投稿" id="wZx-qB-HW5">
-                                        <barButtonItem key="leftBarButtonItem" image="outline_close_white_24pt" id="CtV-ta-y70">
+                                        <barButtonItem key="leftBarButtonItem" title="閉じる" image="outline_close_white_24pt" id="CtV-ta-y70">
                                             <color key="tintColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <connections>
                                                 <action selector="onCancelButtonClick:" destination="4lf-b9-0TX" id="isN-IT-23H"/>
@@ -314,13 +315,13 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="位置情報を設定" id="3J1-lP-Eaa">
-                                        <barButtonItem key="leftBarButtonItem" image="outline_close_white_24pt" id="8dd-CS-8ME">
+                                        <barButtonItem key="leftBarButtonItem" title="変更内容を破棄して戻る" image="outline_close_white_24pt" id="8dd-CS-8ME">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
                                                 <action selector="onCancelButtonClick:" destination="W6w-iF-qDR" id="dCD-v2-LbG"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Item" image="baseline_check_white_24pt" id="hD7-Ed-pRh">
+                                        <barButtonItem key="rightBarButtonItem" title="確定して戻る" image="baseline_check_white_24pt" id="hD7-Ed-pRh">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
                                                 <action selector="onDoneButtonClick:" destination="W6w-iF-qDR" id="EAe-gE-QlE"/>
@@ -334,8 +335,9 @@
                                 <items>
                                     <barButtonItem style="plain" id="Qgx-TP-the">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="unv-x9-YL4">
-                                            <rect key="frame" x="16" y="10" width="103" height="24"/>
+                                            <rect key="frame" x="16" y="10" width="116" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <accessibility key="accessibilityConfiguration" hint="マップの位置を現在地に戻します。" label="現在地に戻す"/>
                                             <state key="normal" image="baseline_my_location_white_24pt"/>
                                             <connections>
                                                 <action selector="onCurrentLocationButtonClick:" destination="W6w-iF-qDR" eventType="touchUpInside" id="0EB-C3-Egz"/>
