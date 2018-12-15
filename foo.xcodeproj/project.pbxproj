@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -32,6 +32,7 @@
 		64350238214E262E004BE58D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64350237214E262E004BE58D /* MapKit.framework */; };
 		6435023A214E43CF004BE58D /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 64350239214E43CF004BE58D /* logo.png */; };
 		64350240214E747C004BE58D /* outline_send_white_24pt.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6435023F214E747B004BE58D /* outline_send_white_24pt.xcassets */; };
+		644EB31F21BA3DC3001E1356 /* top_new.png in Resources */ = {isa = PBXBuildFile; fileRef = 644EB31E21BA3DC3001E1356 /* top_new.png */; };
 		646DBDF221A1B0AD00831539 /* baseline_reply_black_24pt.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 646DBDF121A1B0AD00831539 /* baseline_reply_black_24pt.xcassets */; };
 		646DBDF421A1B44C00831539 /* baseline_close_black_24pt.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 646DBDF321A1B44900831539 /* baseline_close_black_24pt.xcassets */; };
 		64736133214FC79B00B8AC20 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64736132214FC79B00B8AC20 /* PostViewController.swift */; };
@@ -93,6 +94,7 @@
 		64350237214E262E004BE58D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		64350239214E43CF004BE58D /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		6435023F214E747B004BE58D /* outline_send_white_24pt.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = outline_send_white_24pt.xcassets; sourceTree = "<group>"; };
+		644EB31E21BA3DC3001E1356 /* top_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = top_new.png; path = ../../top_new.png; sourceTree = "<group>"; };
 		646DBDF121A1B0AD00831539 /* baseline_reply_black_24pt.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = baseline_reply_black_24pt.xcassets; sourceTree = "<group>"; };
 		646DBDF321A1B44900831539 /* baseline_close_black_24pt.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = baseline_close_black_24pt.xcassets; sourceTree = "<group>"; };
 		64736132214FC79B00B8AC20 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 		25C6EAFD214972D00024DE1E /* img */ = {
 			isa = PBXGroup;
 			children = (
+				644EB31E21BA3DC3001E1356 /* top_new.png */,
 				64350239214E43CF004BE58D /* logo.png */,
 				25C6EAFE214972D00024DE1E /* home.png */,
 				25C6EAFF214972D00024DE1E /* toukou.png */,
@@ -309,11 +312,12 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0940;
 				LastUpgradeCheck = 0940;
-				ORGANIZATIONNAME = nakatake;
+				ORGANIZATIONNAME = "Uematsu Project 2018";
 				TargetAttributes = {
 					25C6EAC02149718F0024DE1E = {
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 1000;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -323,17 +327,19 @@
 					25C6EAD4214971920024DE1E = {
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 1000;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 25C6EAC02149718F0024DE1E;
 					};
 					25C6EADF214971920024DE1E = {
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 1000;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 25C6EAC02149718F0024DE1E;
 					};
 				};
 			};
-			buildConfigurationList = 25C6EABC2149718F0024DE1E /* Build configuration list for PBXProject "tukumokkumokku" */;
-			compatibilityVersion = "Xcode 9.3";
+			buildConfigurationList = 25C6EABC2149718F0024DE1E /* Build configuration list for PBXProject "foo" */;
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -375,6 +381,7 @@
 				6489D0C5214FEB4F00118D88 /* outline_close_white_24pt.xcassets in Resources */,
 				641256DD21535DFD00EAA6F7 /* baseline_check_white_24pt.xcassets in Resources */,
 				25C6EB06214972D00024DE1E /* last.png in Resources */,
+				644EB31F21BA3DC3001E1356 /* top_new.png in Resources */,
 				641EC73121AAA40900F03FFF /* PostViewCell.xib in Resources */,
 				25C6EB04214972D00024DE1E /* toukou.png in Resources */,
 			);
@@ -471,6 +478,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -531,6 +539,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -575,8 +584,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -586,14 +594,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8NAY8T395P;
+				DEVELOPMENT_TEAM = F3YRXFT249;
 				INFOPLIST_FILE = tukumokkumokku/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.uemtp2018.tsukumokku-2";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jp.uemtp2018.foo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -605,14 +610,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8NAY8T395P;
+				DEVELOPMENT_TEAM = F3YRXFT249;
 				INFOPLIST_FILE = tukumokkumokku/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.uemtp2018.tsukumokku-2";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jp.uemtp2018.foo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -626,11 +628,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = tukumokkumokkuTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = swift.com.practice.tukumokkumokkuTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -646,11 +644,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = tukumokkumokkuTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = swift.com.practice.tukumokkumokkuTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -665,11 +659,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = tukumokkumokkuUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = swift.com.practice.tukumokkumokkuUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -684,11 +674,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = tukumokkumokkuUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = swift.com.practice.tukumokkumokkuUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -700,7 +686,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		25C6EABC2149718F0024DE1E /* Build configuration list for PBXProject "tukumokkumokku" */ = {
+		25C6EABC2149718F0024DE1E /* Build configuration list for PBXProject "foo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				25C6EAE7214971920024DE1E /* Debug */,

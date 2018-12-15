@@ -20,16 +20,16 @@
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SmZ-QK-Qr6">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <color key="barTintColor" red="0.66666666669999997" green="0.5450980392" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="barTintColor" red="0.2196078431372549" green="0.33725490196078434" blue="0.46274509803921571" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textAttributes key="titleTextAttributes">
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="現在地周辺" id="VZz-Ku-LMJ">
                                         <barButtonItem key="backBarButtonItem" title="戻るボタン" id="A2t-Em-BN9"/>
-                                        <barButtonItem key="leftBarButtonItem" id="cDh-yh-OmC">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" id="cDh-yh-OmC">
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OAm-ef-1Sb">
-                                                <rect key="frame" x="16" y="10" width="80" height="24"/>
+                                                <rect key="frame" x="16" y="10" width="49" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" image="baseline_my_location_white_24pt"/>
@@ -105,8 +105,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.66666666666666663" green="0.54509803921568623" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="tintColor" red="0.66666666666666663" green="0.54509803921568623" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.2196078431372549" green="0.33725490196078434" blue="0.46274509803921571" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <accessibility key="accessibilityConfiguration">
                             <bool key="isElement" value="YES"/>
                         </accessibility>
@@ -165,8 +164,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.66666666666666663" green="0.54509803921568623" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="tintColor" red="0.66666666666666663" green="0.54509803921568623" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.2196078431372549" green="0.33725490196078434" blue="0.46274509803921571" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="mJS-xU-AT6" firstAttribute="centerY" secondItem="JJa-Tg-Wqm" secondAttribute="centerY" id="6zr-IY-vlM"/>
                             <constraint firstItem="fUT-ar-uJl" firstAttribute="top" secondItem="g8d-lE-SI8" secondAttribute="bottom" constant="16" id="agD-Ku-nWa"/>
@@ -196,7 +194,6 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RoJ-xG-xAM">
                                 <rect key="frame" x="0.0" y="108" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" red="0.72549019609999998" green="0.63137254899999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -242,7 +239,7 @@
                             </toolbar>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w24-yz-00L">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <color key="barTintColor" red="0.66666666669999997" green="0.5450980392" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="barTintColor" red="0.2196078431372549" green="0.33725490196078434" blue="0.46274509803921571" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textAttributes key="titleTextAttributes">
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textAttributes>
@@ -270,8 +267,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.66666666669999997" green="0.5450980392" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="tintColor" red="0.66666666669999997" green="0.5450980392" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.2196078431372549" green="0.33725490196078434" blue="0.46274509803921571" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="RoJ-xG-xAM" firstAttribute="top" secondItem="EOs-j8-P4f" secondAttribute="bottom" id="3Sp-ch-MSf"/>
                             <constraint firstItem="EOs-j8-P4f" firstAttribute="top" secondItem="w24-yz-00L" secondAttribute="bottom" id="DmJ-8e-Mdl"/>
@@ -312,7 +308,7 @@
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5db-jp-UkX">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <color key="barTintColor" red="0.66666666669999997" green="0.5450980392" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="barTintColor" red="0.2196078431372549" green="0.33725490196078434" blue="0.46274509803921571" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textAttributes key="titleTextAttributes">
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textAttributes>
@@ -375,7 +371,7 @@
                                 </connections>
                             </mapView>
                         </subviews>
-                        <color key="backgroundColor" red="0.66666666669999997" green="0.5450980392" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.2196078431372549" green="0.33725490196078434" blue="0.46274509803921571" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="5db-jp-UkX" firstAttribute="leading" secondItem="3hL-x4-IWF" secondAttribute="leading" id="1jo-wX-4y4"/>
                             <constraint firstItem="3hL-x4-IWF" firstAttribute="trailing" secondItem="wez-j9-ekV" secondAttribute="trailing" id="5Y1-id-aDv"/>
@@ -470,5 +466,5 @@
         <image name="outline_location_on_black_24pt" width="24" height="24"/>
         <image name="outline_send_white_24pt" width="24" height="24"/>
     </resources>
-    <color key="tintColor" red="0.66666666669999997" green="0.5450980392" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" red="0.023529411764705882" green="0.17254901960784313" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

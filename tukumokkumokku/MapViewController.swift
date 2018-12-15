@@ -186,6 +186,7 @@ extension MapViewController: MKMapViewDelegate {
     let accView = PostThreadView.createInstance()
     if post != nil {
       pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: String(post.id))
+      
       accView.parentVC = self
       accView.post = post // parentVCをセットする前に呼ぶと追記不能になる
       NSLog("Parent is set from MapVC")

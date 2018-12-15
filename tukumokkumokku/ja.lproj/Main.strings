@@ -1,0 +1,54 @@
+
+/* Class = "UIBarButtonItem"; title = "送信"; ObjectID = "1AJ-Qn-khi"; */
+"1AJ-Qn-khi.title" = "送信";
+
+/* Class = "UINavigationItem"; title = "位置情報を設定"; ObjectID = "3J1-lP-Eaa"; */
+"3J1-lP-Eaa.title" = "位置情報を設定";
+
+/* Class = "UIViewController"; title = "新規投稿"; ObjectID = "4lf-b9-0TX"; */
+"4lf-b9-0TX.title" = "新規投稿";
+
+/* Class = "UILabel"; text = "位置情報を取得中…"; ObjectID = "5rM-fi-Kjd"; */
+"5rM-fi-Kjd.text" = "位置情報を取得中…";
+
+/* Class = "UIBarButtonItem"; title = "戻るボタン"; ObjectID = "A2t-Em-BN9"; */
+"A2t-Em-BN9.title" = "戻るボタン";
+
+/* Class = "UIButton"; normalTitle = "変更"; ObjectID = "Eck-Gy-lNy"; */
+"Eck-Gy-lNy.normalTitle" = "変更";
+
+/* Class = "UIButton"; normalTitle = "置く"; ObjectID = "Rtz-Hn-d5W"; */
+"Rtz-Hn-d5W.normalTitle" = "置く";
+
+/* Class = "UINavigationItem"; title = "現在地周辺"; ObjectID = "VZz-Ku-LMJ"; */
+"VZz-Ku-LMJ.title" = "現在地周辺";
+
+/* Class = "UIViewController"; title = "SelectLocation"; ObjectID = "W6w-iF-qDR"; */
+"W6w-iF-qDR.title" = "SelectLocation";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "cDh-yh-OmC"; */
+"cDh-yh-OmC.title" = "Item";
+
+/* Class = "UILabel"; text = "もう少しお待ちください…"; ObjectID = "fUT-ar-uJl"; */
+"fUT-ar-uJl.text" = "もう少しお待ちください…";
+
+/* Class = "UILabel"; text = "認証しています…"; ObjectID = "g8d-lE-SI8"; */
+"g8d-lE-SI8.text" = "認証しています…";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "hD7-Ed-pRh"; */
+"hD7-Ed-pRh.title" = "Item";
+
+/* Class = "UIViewController"; title = "現在地周辺"; ObjectID = "iug-ZV-Z3w"; */
+"iug-ZV-Z3w.title" = "現在地周辺";
+
+/* Class = "UILabel"; text = "位置情報の追跡は有効です"; ObjectID = "rxW-RV-PfO"; */
+"rxW-RV-PfO.text" = "位置情報の追跡は有効です";
+
+/* Class = "UINavigationItem"; title = "新規投稿"; ObjectID = "wZx-qB-HW5"; */
+"wZx-qB-HW5.title" = "新規投稿";
+
+/* Class = "UILabel"; text = "内容を入力…"; ObjectID = "x7J-bh-ete"; */
+"x7J-bh-ete.text" = "内容を入力…";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "zep-3w-tE8"; */
+"zep-3w-tE8.title" = "Item";
